@@ -2,4 +2,34 @@
     <string name="app_name">Jedi2</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="action_delete_all">Delete all.</string>
+    <string name="action_add_item">Add some items.</string>
+    <string name="action_scan">Scan</string>
+    <string name="action_sync">Sync</string>
+    <string name="action_sync2">Sync2</string>
+    <string name="action_Help">Hint: press 2s to delete a item.</string>
+    <string name="action_delete_last_device">Delete last device</string>
+    <string name="action_add_fake_last_device">add fake mac address for last device</string>
+
+    <string name="bt_not_supported">Bluetooth is not supported.</string>
+    <string name="bt_not_enabled_leaving">User declined to enable Bluetooth, exit the app.</string>
+    <string name="bt_device_connected">Device connected.</string>
+    <string name="bt_device_not_connect">Can not connect to device</string>
+    <string name="bt_lost_connection">Connection lost.</string>
+
+    <string name="status_not_connect">Not connect.</string>
+    <string name="status_connecting">Connecting...</string>
+    <string name="status_connected">Connected.</string>
+
+    <string name="input_validate">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
+
+    <string name="title_activity_second">Setup</string>
+    <string name="done">Done</string>
+    <string name="string_no_device">No device found\nThe device may be off or out of range</string>
+    <string name="action_test">test</string>
+    <string name="max_number_entry">You cannot make more 20 entry.</string>
+    <string name="action_sync_time">Sync time</string>
+    <string name="action_check_system">Check system</string>
+
 </resources>
