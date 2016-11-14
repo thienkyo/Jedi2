@@ -201,7 +201,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(Relay.TABLE_NAME, contentValues, Relay.COLUMN_NAME_RELAY_ID + " = ? ", new String[] { String.valueOf(relay_id) }) > 0;
     }
 
-    public ArrayList<Entry> getAllEntryBySwitch()
+    public ArrayList<Entry> getAllEntryBySwitch()/// test test
     {
         ArrayList<Entry> array_list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
