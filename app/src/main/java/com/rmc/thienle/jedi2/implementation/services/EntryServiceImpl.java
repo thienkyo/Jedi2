@@ -6,7 +6,10 @@ import android.database.Cursor;
 
 import com.rmc.thienle.jedi2.DataBaseHelper;
 import com.rmc.thienle.jedi2.implementation.EntryImpl;
+import com.rmc.thienle.jedi2.interfaces.Entry;
 import com.rmc.thienle.jedi2.interfaces.services.EntryService;
+
+import java.util.ArrayList;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -37,6 +40,73 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     }
 
     @Override
+    public boolean updateEntryById(int entry_id, String entry_name, int start_hr, int start_min, int start_sec, int end_hr, int end_min, int end_sec, String is_weekday, String is_month, int relay_pin, int switch_id) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EntryImpl.COLUMN_NAME_ENTRY_NAME, entry_name);
+        contentValues.put(EntryImpl.COLUMN_NAME_START_HR, start_hr);
+        contentValues.put(EntryImpl.COLUMN_NAME_START_MIN, start_min);
+        contentValues.put(EntryImpl.COLUMN_NAME_START_SEC, start_sec);
+        contentValues.put(EntryImpl.COLUMN_NAME_END_HR, end_hr);
+        contentValues.put(EntryImpl.COLUMN_NAME_END_MIN, end_min);
+        contentValues.put(EntryImpl.COLUMN_NAME_END_SEC, end_sec);
+        contentValues.put(EntryImpl.COLUMN_NAME_IS_WEEKDAY, is_weekday);
+        contentValues.put(EntryImpl.COLUMN_NAME_IS_MONTH, is_month);
+        contentValues.put(EntryImpl.COLUMN_NAME_RELAY_PIN, relay_pin);
+        contentValues.put(EntryImpl.COLUMN_NAME_SWITCH_ID, switch_id);
+        return db.update(EntryImpl.TABLE_NAME, contentValues, EntryImpl.COLUMN_NAME_ENTRY_ID + " = ? ", new String[] { String.valueOf(entry_id) }) > 0;
+    }
+
+    @Override
+    public ArrayList<Entry> getAllEntryBySwitchId(int switchId) {
+        ArrayList<Entry> array_list = new ArrayList<>();
+        Cursor res =  db.rawQuery( "select * from "+EntryImpl.TABLE_NAME+ " where " + EntryImpl.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.COLUMN_NAME_ENTRY_NAME)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_ENTRY_ID)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_SWITCH_ID)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_RELAY_PIN)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_START_HR)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_START_MIN)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_START_SEC)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_END_HR)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_END_MIN)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_END_SEC)),
+                    res.getString(res.getColumnIndex(EntryImpl.COLUMN_NAME_IS_WEEKDAY)),
+                    res.getString(res.getColumnIndex(EntryImpl.COLUMN_NAME_IS_MONTH))
+            ));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+    @Override
+    public ArrayList<Entry> getAllEntryByRelayPin(int relayPin) {
+        ArrayList<Entry> array_list = new ArrayList<>();
+        Cursor res =  db.rawQuery( "select * from "+EntryImpl.TABLE_NAME+ " where " + EntryImpl.COLUMN_NAME_RELAY_PIN + "=" + relayPin, null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.COLUMN_NAME_ENTRY_NAME)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_ENTRY_ID)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_SWITCH_ID)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_RELAY_PIN)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_START_HR)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_START_MIN)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_START_SEC)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_END_HR)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_END_MIN)),
+                    res.getInt(res.getColumnIndex(EntryImpl.COLUMN_NAME_END_SEC)),
+                    res.getString(res.getColumnIndex(EntryImpl.COLUMN_NAME_IS_WEEKDAY)),
+                    res.getString(res.getColumnIndex(EntryImpl.COLUMN_NAME_IS_MONTH))
+            ));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+    @Override
     public int deleteEntry(int id) {
         if(id != 0){
             return db.delete(EntryImpl.TABLE_NAME, EntryImpl.COLUMN_NAME_ENTRY_ID + " = ? ", new String[]{ String.valueOf(id) });
@@ -46,7 +116,7 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     }
 
     @Override
-    public Cursor getEntry(int id) {
+    public Cursor getEntryById(int id) {
         return  db.rawQuery("select * from " + EntryImpl.TABLE_NAME + " where " + EntryImpl.COLUMN_NAME_ENTRY_ID + "=" + id, null);
     }
 

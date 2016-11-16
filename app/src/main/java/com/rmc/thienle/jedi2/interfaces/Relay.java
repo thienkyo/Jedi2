@@ -5,4 +5,7 @@ package com.rmc.thienle.jedi2.interfaces;
  */
 
 public interface Relay {
+    String printOut();
+    int getRelayPin();
+    String getRelayName();
 }

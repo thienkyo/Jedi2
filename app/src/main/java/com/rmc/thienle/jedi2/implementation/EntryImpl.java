@@ -35,6 +35,24 @@ public class EntryImpl implements Entry {
     private String isWeekDay;
     private String isMonth;
 
+    public EntryImpl(String entryName, int entryId, int switchId, int relayPin,
+                     int startHr, int startMin, int startSec,
+                     int endHr, int endMin, int endSec,
+                     String isWeekDay, String isMonth) {
+        this.entryName = entryName;
+        this.entryId = entryId;
+        this.switchId = switchId;
+        this.relayPin = relayPin;
+        this.startHr = startHr;
+        this.startMin = startMin;
+        this.startSec = startSec;
+        this.endHr = endHr;
+        this.endMin = endMin;
+        this.endSec = endSec;
+        this.isWeekDay = isWeekDay;
+        this.isMonth = isMonth;
+    }
+
     @Override
     public int getEntryId() {
         return entryId;
@@ -46,7 +64,7 @@ public class EntryImpl implements Entry {
     }
 
     @Override
-    public String toString(){
+    public String printOut(){
         String weekDay = StringHandler.isWeekDayConversion(isWeekDay);
         String month = StringHandler.isMonthConversion(isMonth);
 

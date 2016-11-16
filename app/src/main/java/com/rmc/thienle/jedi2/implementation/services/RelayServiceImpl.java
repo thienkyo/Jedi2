@@ -2,6 +2,7 @@ package com.rmc.thienle.jedi2.implementation.services;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.rmc.thienle.jedi2.DataBaseHelper;
 import com.rmc.thienle.jedi2.implementation.RelayImpl;
@@ -26,11 +27,25 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
+    public boolean updateRelay(String relay_name, int relay_pin, float preset_time) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(RelayImpl.COLUMN_NAME_RELAY_NAME, relay_name);
+        contentValues.put(RelayImpl.COLUMN_NAME_RELAY_PIN, relay_pin);
+        contentValues.put(RelayImpl.COLUMN_NAME_RELAY_PRESET_TIME, preset_time);
+        return db.update(RelayImpl.TABLE_NAME, contentValues, RelayImpl.COLUMN_NAME_RELAY_PIN + " = ? ", new String[] { String.valueOf(relay_pin) }) > 0;
+    }
+
+    @Override
     public int deleteRelay(int id) {
         if(id != 0){
-            return db.delete(RelayImpl.TABLE_NAME, RelayImpl.COLUMN_NAME_RELAY_ID + " = ? ", new String[]{ String.valueOf(id) });
+            return db.delete(RelayImpl.TABLE_NAME, RelayImpl.COLUMN_NAME_RELAY_PIN + " = ? ", new String[]{ String.valueOf(id) });
         }else {
             return db.delete(RelayImpl.TABLE_NAME, null, null);
         }
+    }
+
+    @Override
+    public Cursor getRelayById(int id) {
+        return  db.rawQuery("select * from " + RelayImpl.TABLE_NAME + " where " + RelayImpl.COLUMN_NAME_RELAY_PIN + "=" + id, null);
     }
 }

@@ -49,9 +49,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     ")";
     private static final String SQL_CREATE_RELAY_TBL =
             "CREATE TABLE " + RelayImpl.TABLE_NAME + " (" +
-                    RelayImpl.COLUMN_NAME_RELAY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    RelayImpl.COLUMN_NAME_RELAY_PIN + " INTEGER PRIMARY KEY," +
                     RelayImpl.COLUMN_NAME_RELAY_NAME + TEXT_TYPE + COMMA_SEP +
-                    RelayImpl.COLUMN_NAME_RELAY_PIN + INTEGER_TYPE + COMMA_SEP +
                     RelayImpl.COLUMN_NAME_RELAY_PRESET_TIME + FLOAT_TYPE + COMMA_SEP +
                     ")";
 

@@ -6,7 +6,7 @@ package com.rmc.thienle.jedi2.interfaces;
 
 public interface Entry {
     public String toRaw();
-    public String toString();
+    public String printOut();
     public int getEntryId();
     public String getEntryName();
 }
