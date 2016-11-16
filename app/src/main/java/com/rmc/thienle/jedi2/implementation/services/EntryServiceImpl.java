@@ -2,6 +2,7 @@ package com.rmc.thienle.jedi2.implementation.services;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.rmc.thienle.jedi2.DataBaseHelper;
 import com.rmc.thienle.jedi2.implementation.EntryImpl;
@@ -34,4 +35,20 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
         contentValues.put(EntryImpl.COLUMN_NAME_SWITCH_ID, switch_id);
         return db.insert(EntryImpl.TABLE_NAME, null, contentValues) > 0;
     }
+
+    @Override
+    public int deleteEntry(int id) {
+        if(id != 0){
+            return db.delete(EntryImpl.TABLE_NAME, EntryImpl.COLUMN_NAME_ENTRY_ID + " = ? ", new String[]{ String.valueOf(id) });
+        }else {
+            return db.delete(EntryImpl.TABLE_NAME, null, null);
+        }
+    }
+
+    @Override
+    public Cursor getEntry(int id) {
+        return  db.rawQuery("select * from " + EntryImpl.TABLE_NAME + " where " + EntryImpl.COLUMN_NAME_ENTRY_ID + "=" + id, null);
+    }
+
+
 }

@@ -24,4 +24,13 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
         contentValues.put(RelayImpl.COLUMN_NAME_RELAY_PRESET_TIME, preset_time);
         return db.insert(RelayImpl.TABLE_NAME, null, contentValues) > 0;
     }
+
+    @Override
+    public int deleteRelay(int id) {
+        if(id != 0){
+            return db.delete(RelayImpl.TABLE_NAME, RelayImpl.COLUMN_NAME_RELAY_ID + " = ? ", new String[]{ String.valueOf(id) });
+        }else {
+            return db.delete(RelayImpl.TABLE_NAME, null, null);
+        }
+    }
 }

@@ -6,4 +6,5 @@ package com.rmc.thienle.jedi2.interfaces.services;
 
 public interface SwitchService {
     public boolean insertSwitch(String switch_name, String sync_code, String pass_code);
+    public int deleteSwitch (int id);
 }
