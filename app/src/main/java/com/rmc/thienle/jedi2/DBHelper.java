@@ -200,7 +200,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(Relay.COLUMN_NAME_RELAY_PRESET_TIME, preset_time);
         return db.update(Relay.TABLE_NAME, contentValues, Relay.COLUMN_NAME_RELAY_ID + " = ? ", new String[] { String.valueOf(relay_id) }) > 0;
     }
-
+/*
     public ArrayList<Entry> getAllEntryBySwitch()/// test test
     {
         ArrayList<Entry> array_list = new ArrayList<>();
@@ -250,7 +250,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return array_list;
     }
-
+*/
 
     public ArrayList<Integer> getAllEntry_id()
     {
