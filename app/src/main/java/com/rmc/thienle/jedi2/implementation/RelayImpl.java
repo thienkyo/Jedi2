@@ -18,16 +18,16 @@ public class RelayImpl implements Relay {
 
     @Override
     public String printOut() {
-        return null;
+        return "Relay: "+relayName+" pin:"+relayPin+" preset time: "+presetTime;
+
     }
 
     @Override
-    public int getRelayPin() {
-        return 0;
-    }
+    public int getRelayPin() {return relayPin; }
 
     @Override
-    public String getRelayName() {
-        return null;
-    }
+    public String getRelayName() {return relayName; }
+
+    @Override
+    public float getPresetTime() {return presetTime; }
 }

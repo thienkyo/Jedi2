@@ -5,4 +5,9 @@ package com.rmc.thienle.jedi2.interfaces;
  */
 
 public interface Switch {
+    String printOut();
+    int getSwitchId();
+    String getSwitchName();
+    String getSyncCode();
+    String getPassCode();
 }

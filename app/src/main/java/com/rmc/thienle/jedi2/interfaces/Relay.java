@@ -8,4 +8,5 @@ public interface Relay {
     String printOut();
     int getRelayPin();
     String getRelayName();
+    float getPresetTime();
 }

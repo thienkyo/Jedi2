@@ -45,8 +45,14 @@ public class SwitchServiceImpl extends DataBaseHelper implements SwitchService {
         }
     }
 
+    /**
+     * get one or all switch(id = 0) in database
+     * @param id switchId
+     * @return one or many switch
+     */
     @Override
     public Cursor getSwitchById(int id) {
         return  db.rawQuery("select * from " + SwitchImpl.TABLE_NAME + " where " + SwitchImpl.COLUMN_NAME_SWITCH_ID + "=" + id, null);
+
     }
 }
