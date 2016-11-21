@@ -1,5 +1,8 @@
 package com.rmc.thienle.jedi2;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,8 +67,17 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*
+                if(entryList.size() <=20) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", 0);
+                    bundle.putString("val", "");
+                    Intent myIntent = new Intent(MainActivity.this, ThirdActivity.class);
+                    myIntent.putExtra("MyPackage", bundle);
+                    startActivity(myIntent);
+                }else{
+                    Snackbar.make(view, R.string.max_number_entry, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }*/
             }
         });
 
@@ -85,8 +98,79 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_check_system) {
+          //  chksys();
+            return true;
+        }
+        if (id == R.id.action_sync) {
+/*
+            progressBarHandler = new Handler();
+            entry_Index = 0;
+            progress = new ProgressDialog(this); // this = YourActivity
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setMessage("Syncing. Please wait...");
+            progress.setProgress(0);
+            progress.setMax(entryList.size());
+            progress.setIndeterminate(false);
+            progress.setCanceledOnTouchOutside(false);
+            progress.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run()
+                {
+                    // do the thing that takes a long time
+                    try {
+                        mBtService.sync(entryList);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Log.e(TAG, "write data to bluetooth device in MainActivity 1234");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            progress.dismiss();
+                        }
+                    });
+                }
+            }).start();*/
+            return true;
+        }
+        if (id == R.id.action_sync_time) {
+         //   syncTime();
+
+            return true;
+        }
+        if (id == R.id.action_connect) {
+/*            // mBtService.stop();
+            String temp_addr = getLastBludeviceAddr();
+            Log.d(TAG, "address:"+temp_addr);
+            if(mBtService.getState() != BluetoothService.STATE_CONNECTED) {
+                if (temp_addr == "") { // last device : no and paired devices : no
+                    mBluetoothAdapter.startDiscovery();
+                    showBluetoothDialog();
+                    //item.setIcon(R.drawable.ic_bluetooth_enable);
+                } else { //last device : yes
+                    connect(temp_addr, true);
+                }
+            }*/
+            return true;
+        }
+        if (id == R.id.action_delete_last_device) {
+          //  manageLastDevice("");
+            return true;
+        }
+        if (id == R.id.action_add_fake_last_device) {
+         //   manageLastDevice("20:16:01:06:79:99");
+            return true;
+        }
+        if (id == R.id.action_delete_all) {
+        //    deleteDataPref();
+            return true;
+        }
+        if (id == R.id.action_add_item) {
+        //    addDataPref();
             return true;
         }
 

@@ -3,18 +3,16 @@ package com.rmc.thienle.jedi2;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.rmc.thienle.jedi2.implementation.EntryImpl;
 import com.rmc.thienle.jedi2.implementation.RelayImpl;
 import com.rmc.thienle.jedi2.implementation.SwitchImpl;
-import com.rmc.thienle.jedi2.interfaces.Entry;
 
 /**
  * Created by thienle on 11/14/16.
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
-    private static final String TAG = DBHelper.class.getSimpleName();
+    private static final String TAG = DataBaseHelper.class.getSimpleName();
     public static final String DATABASE_NAME = "JEDIDB.db";
     public static final int DATABASE_VERSION = 1;
 
