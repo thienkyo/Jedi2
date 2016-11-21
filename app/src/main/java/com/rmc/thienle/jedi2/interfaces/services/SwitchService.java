@@ -12,7 +12,7 @@ public interface SwitchService {
 
     /**
      * Delete 1 or all(id = 0) records in Switch table.
-     * @param id
+     * @param id switch_id col in table.
      * @return int. Number of affected rows
      */
     int deleteSwitchById(int id);
