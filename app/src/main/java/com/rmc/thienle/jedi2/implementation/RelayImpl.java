@@ -36,8 +36,7 @@ public class RelayImpl implements Relay {
                     "(" + RelayDetails._ID + COMMA_SEP +
                     RelayDetails.COLUMN_NAME_RELAY_NAME+ COMMA_SEP+
                     RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME +
-                    ") values(7,'Lights',0)"
-            ;
+                    ") values(7,'Lights',0)";
 
     private String relayName;
     private int relayPin;
