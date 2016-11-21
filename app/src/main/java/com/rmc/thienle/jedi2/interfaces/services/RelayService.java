@@ -1,6 +1,8 @@
 package com.rmc.thienle.jedi2.interfaces.services;
 
-import android.database.Cursor;
+import com.rmc.thienle.jedi2.interfaces.Relay;
+
+import java.util.ArrayList;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -13,8 +15,9 @@ public interface RelayService {
      * @return
      */
     int deleteRelay (int id);
-    Cursor getRelayById(int id);
+    int deleteAllRelay ();
+    Relay getRelayById(int id);
+    ArrayList<Relay> getAllRelay();
     boolean insertRelay(String relay_name, int relay_pin, float preset_time);
     boolean updateRelay (String relay_name, int relay_pin, float preset_time);
-
 }
