@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rmc.thienle.jedi2.MainActivity">
 
+    <item android:id="@+id/action_add_switch"
+        android:title="@string/action_add_switch"
+        app:showAsAction="never"/>
+    <item android:id="@+id/action_switch_list"
+        android:title="@string/action_switch_list"
+        app:showAsAction="never"/>
     <item android:id="@+id/action_check_system"
         android:title="@string/action_check_system"
         app:showAsAction="never"/>
@@ -40,5 +46,10 @@
         android:id="@+id/action_help"
         android:orderInCategory="100"
         android:title="@string/action_Help"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_get_entry_back"
+        android:orderInCategory="100"
+        android:title="@string/action_get_entry_back"
         app:showAsAction="never" />
 </menu>

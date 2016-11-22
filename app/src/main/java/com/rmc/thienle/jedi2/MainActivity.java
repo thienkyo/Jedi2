@@ -21,7 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.rmc.thienle.jedi2.implementation.EntryImpl;
+import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
+import com.rmc.thienle.jedi2.interfaces.Entry;
+import com.rmc.thienle.jedi2.interfaces.services.EntryService;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -208,6 +216,14 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            ListView listView = (ListView) rootView.findViewById(R.id.entry_list);
+
+            EntryService entryDB = new EntryServiceImpl(getContext());
+            List<Entry> entryList = entryDB.getAllEntry();
+            //1. Tạo ArrayList object: entry
+          //   arrList=new ArrayList();
+          //  entryList = mydb.getFullEntries();
+
             return rootView;
         }
     }
