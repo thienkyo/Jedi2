@@ -34,4 +34,5 @@
     <string name="done">Done</string>
     <string name="string_no_device">No device found\nThe device may be off or out of range</string>
     <string name="max_number_entry">You cannot make more 20 entry.</string>
+    <string name="title_activity_entry_manage">Entry Management</string>
 </resources>

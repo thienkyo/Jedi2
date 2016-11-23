@@ -12,7 +12,6 @@ import com.rmc.thienle.jedi2.interfaces.Entry;
 public class EntryImpl implements Entry {
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
-    private static final String FLOAT_TYPE = " FLOAT";
     private static final String COMMA_SEP = ",";
 
     /* Inner class that defines the table contents */
@@ -30,6 +29,7 @@ public class EntryImpl implements Entry {
         public static final String COLUMN_NAME_IS_WEEKDAY = "is_weekday";
         public static final String COLUMN_NAME_IS_MONTH = "is_month";
     }
+
     public static final String SQL_CREATE_ENTRY_TBL =
             "CREATE TABLE " + EntryDetails.TABLE_NAME + " (" +
                     EntryDetails._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -44,8 +44,8 @@ public class EntryImpl implements Entry {
                     EntryDetails.COLUMN_NAME_IS_WEEKDAY + TEXT_TYPE + COMMA_SEP +
                     EntryDetails.COLUMN_NAME_IS_MONTH + TEXT_TYPE + COMMA_SEP +
                     EntryDetails.COLUMN_NAME_SWITCH_ID + INTEGER_TYPE + COMMA_SEP +
-                    " FOREIGN KEY ("+EntryDetails.COLUMN_NAME_SWITCH_ID+") REFERENCES "+ SwitchImpl.SwitchDetails.TABLE_NAME+"("+SwitchImpl.SwitchDetails._ID+")"+
-                    " FOREIGN KEY ("+EntryDetails.COLUMN_NAME_RELAY_PIN+") REFERENCES "+ RelayImpl.RelayDetails.TABLE_NAME+"("+RelayImpl.RelayDetails._ID+")"+
+                    " FOREIGN KEY (" + EntryDetails.COLUMN_NAME_SWITCH_ID + ") REFERENCES " + SwitchImpl.SwitchDetails.TABLE_NAME + "(" + SwitchImpl.SwitchDetails._ID + ")" +
+                    " FOREIGN KEY (" + EntryDetails.COLUMN_NAME_RELAY_PIN + ") REFERENCES " + RelayImpl.RelayDetails.TABLE_NAME + "(" + RelayImpl.RelayDetails._ID + ")" +
                     " )";
 
     public static final String SQL_DELETE_ENTRY_TBL = "DROP TABLE IF EXISTS " + EntryDetails.TABLE_NAME;
@@ -62,6 +62,11 @@ public class EntryImpl implements Entry {
     private int endSec;
     private String isWeekDay;
     private String isMonth;
+
+    private String weekDay = StringHandler.isWeekDayConversion(isWeekDay);
+    private String month = StringHandler.isMonthConversion(isMonth);
+    private String workingTime = (startHr > 9 ? startHr + "" : "0" + startHr) + ":" + (startMin > 9 ? startMin + "" : "0" + startMin) + " -> " + ":" + (startSec > 9 ? startSec + "" : "0" + startSec) +
+            (endHr > 9 ? endHr + "" : "0" + endHr) + ":" + (endMin > 9 ? endMin + "" : "0" + endMin) + ":" + (endSec > 9 ? endSec + "" : "0" + endSec);
 
     public EntryImpl(String entryName, int entryId, int switchId, int relayPin,
                      int startHr, int startMin, int startSec,
@@ -92,25 +97,33 @@ public class EntryImpl implements Entry {
     }
 
     @Override
-    public String printOut(){
-        String weekDay = StringHandler.isWeekDayConversion(isWeekDay);
-        String month = StringHandler.isMonthConversion(isMonth);
-
-        return entryName +" - "+month+" "+weekDay+
-                (startHr >9 ? startHr+"" : "0"+startHr) +":"+ (startMin > 9 ? startMin+"" : "0"+startMin)+ " -> "+":"+(startSec > 9 ? startSec+"" : "0"+startSec)+
-                (endHr >9 ? endHr+"" : "0"+endHr) +":"+ (endMin > 9 ? endMin+"" : "0"+endMin)+":"+(endSec > 9 ? endSec+"" : "0"+endSec)
-                ;
+    public String getMonthWeekString() {
+        return month + " " + weekDay;
     }
 
     @Override
-    public String toRaw(){  //6,18,0,0,18,30,0, 1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1
-        return entryName+
-                ", entryId="+entryId+
-                ", switchId="+switchId+
-                ", relayPin="+relayPin+
-                ", start:"+startHr+":"+startMin+":"+startSec+
-                ", end: "+endHr+","+endMin+","+endSec+
-                ", "+StringHandler.isWeekDayConversion(isWeekDay)+
-                ", "+StringHandler.isMonthConversion(isMonth);
+    public String getWorkingTime() {
+        return workingTime;
+    }
+
+    @Override
+    public String printOut() {
+        return "id: "+entryId+","+
+                "Name: "+entryName +
+                "Switch is: " + switchId+
+                "Relay pin: " + relayPin+
+                " - " + month + " " + weekDay + " " + workingTime;
+    }
+
+    @Override
+    public String toRaw() {  //6,18,0,0,18,30,0, 1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1
+        return entryName +
+                "," + entryId +
+                "," + switchId +
+                "," + relayPin +
+                "," + startHr + "," + startMin + "," + startSec +
+                "," + endHr + "," + endMin + "," + endSec +
+                "," + isWeekDay +
+                "," + isMonth;
     }
 }

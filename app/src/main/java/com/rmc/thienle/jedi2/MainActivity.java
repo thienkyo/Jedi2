@@ -21,10 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.rmc.thienle.jedi2.implementation.EntryImpl;
+
+import com.rmc.thienle.jedi2.adapter.EntryArrayAdapter;
 import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
 import com.rmc.thienle.jedi2.interfaces.Entry;
 import com.rmc.thienle.jedi2.interfaces.services.EntryService;
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    //TextView resultTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         toolbar.setLogo(R.mipmap.ic_launcher);
         toolbar.setTitle(R.string.app_name);
         toolbar.setSubtitle(R.string.status_not_connect);
-
         setSupportActionBar(toolbar);
+
+       // resultTV = (TextView) findViewById(R.id.section_label);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -107,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_check_system) {
-          //  chksys();
+            //  chksys();
             return true;
         }
         if (id == R.id.action_sync) {
@@ -146,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_sync_time) {
-         //   syncTime();
+            //   syncTime();
 
             return true;
         }
@@ -166,19 +170,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_delete_last_device) {
-          //  manageLastDevice("");
+            //  manageLastDevice("");
             return true;
         }
         if (id == R.id.action_add_fake_last_device) {
-         //   manageLastDevice("20:16:01:06:79:99");
+            //   manageLastDevice("20:16:01:06:79:99");
             return true;
         }
         if (id == R.id.action_delete_all) {
-        //    deleteDataPref();
+            //    deleteDataPref();
             return true;
         }
         if (id == R.id.action_add_item) {
-        //    addDataPref();
+            //    addDataPref();
             return true;
         }
 
@@ -194,6 +198,12 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        EntryService entryDB = new EntryServiceImpl(getContext());
+        //1. create ArrayList object: entry
+        List<Entry> entryList = entryDB.getAllEntry();
+        //2. input Data Source (ArrayList object) into ArrayAdapter
+        EntryArrayAdapter entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_layout, entryList);
+
 
         public PlaceholderFragment() {
         }
@@ -211,18 +221,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            ListView listView = (ListView) rootView.findViewById(R.id.entry_list);
+            final TextView resultTV = (TextView) rootView.findViewById(R.id.section_label);
+            resultTV.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            ListView entryLV = (ListView) rootView.findViewById(R.id.entry_list);
 
-            EntryService entryDB = new EntryServiceImpl(getContext());
-            List<Entry> entryList = entryDB.getAllEntry();
-            //1. Tạo ArrayList object: entry
-          //   arrList=new ArrayList();
-          //  entryList = mydb.getFullEntries();
+            //3. set Adapter for ListView
+            entryLV.setAdapter(entryAdapter);
+            //4. handle if user pick one item in ListView
+            entryLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    resultTV.setText("position : " + arg2 + "; value =" + entryList.get(arg2));
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", entryList.get(arg2).getEntryId());
+                    bundle.putString("val", entryList.get(arg2).toRaw());
+                    Intent myIntent = new Intent(getContext(), EntryManageActivity.class);
+                    myIntent.putExtra("MyBundle", bundle);
+                    startActivity(myIntent);
+                }
+            });
+            //6. xử lý sự kiện Long click
+            entryLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    Log.d(TAG, "entry : " + entryList.get(arg2).printOut());
+                    entryDB.deleteEntryById(entryList.get(arg2).getEntryId());
+                    entryAdapter.remove(entryList.get(arg2));
+                    entryAdapter.notifyDataSetChanged();
+                    return true;
+                }
+            });
 
             return rootView;
         }

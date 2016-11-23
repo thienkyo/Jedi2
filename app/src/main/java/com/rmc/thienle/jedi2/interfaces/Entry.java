@@ -5,8 +5,10 @@ package com.rmc.thienle.jedi2.interfaces;
  */
 
 public interface Entry {
-    public String toRaw();
-    public String printOut();
-    public int getEntryId();
-    public String getEntryName();
+    String toRaw();
+    String printOut();
+    int getEntryId();
+    String getEntryName();
+    String getMonthWeekString();
+    String getWorkingTime();
 }
