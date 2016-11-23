@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private static final String TAG = MainActivity.class.getSimpleName();
-    //TextView resultTV;
+    private EntryService entryService = new EntryServiceImpl(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle(R.string.status_not_connect);
         setSupportActionBar(toolbar);
 
-       // resultTV = (TextView) findViewById(R.id.section_label);
+        // resultTV = (TextView) findViewById(R.id.section_label);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -182,11 +181,21 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_add_item) {
-            //    addDataPref();
+            addSampleEntry();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addSampleEntry() {
+        entryService.insertEntry("sang", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("trua", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("Chieu", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+
+        entryService.insertEntry("sang", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("trua", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("Chieu", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -198,12 +207,12 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static int positionNum;
         EntryService entryDB = new EntryServiceImpl(getContext());
         //1. create ArrayList object: entry
-        List<Entry> entryList = entryDB.getAllEntry();
+        List<Entry> entryList = entryDB.getAllEntryBySwitchId(positionNum+5);
         //2. input Data Source (ArrayList object) into ArrayAdapter
         EntryArrayAdapter entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_layout, entryList);
-
 
         public PlaceholderFragment() {
         }
@@ -213,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
+            positionNum = sectionNumber;
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -242,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(myIntent);
                 }
             });
-            //6. xử lý sự kiện Long click
+            //5. xử lý sự kiện Long click
             entryLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -253,7 +263,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             });
-
             return rootView;
         }
     }
@@ -277,8 +286,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            // Causes adapter to reload all Fragments when
+            // notifyDataSetChanged is called
+            return POSITION_NONE;
+            //return super.getItemPosition(object);
         }
 
         @Override

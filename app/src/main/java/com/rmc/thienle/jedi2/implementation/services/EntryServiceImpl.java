@@ -23,7 +23,6 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     @Override
     public boolean insertEntry(String entry_name, int start_hr, int start_min, int start_sec,
                                int end_hr, int end_min, int end_sec, String is_weekday, String is_month, int relay_pin, int switch_id) {
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME, entry_name);
         contentValues.put(EntryImpl.EntryDetails.COLUMN_NAME_START_HR, start_hr);
