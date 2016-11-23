@@ -188,13 +188,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addSampleEntry() {
-        entryService.insertEntry("sang", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
-        entryService.insertEntry("trua", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
-        entryService.insertEntry("Chieu", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("sang6", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("trua6", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("Chieu6", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
 
-        entryService.insertEntry("sang", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
-        entryService.insertEntry("trua", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
-        entryService.insertEntry("Chieu", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("sang7", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("trua7", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("Chieu7", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 

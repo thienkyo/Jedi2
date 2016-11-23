@@ -24,6 +24,7 @@ public interface EntryService {
                                 String is_weekday, String is_month, int relay_pin, int switch_id);
     ArrayList<Entry> getAllEntryBySwitchId(int switchId);
     ArrayList<Entry> getAllEntryByRelayPin(int relayPin);
+    ArrayList<Entry> getAllEntryBySwitchIdRelayPin(int switchId, int relayPin);
     Entry getEntryById(int id);
     ArrayList<Entry> getAllEntry();
 }

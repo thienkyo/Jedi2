@@ -113,6 +113,36 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     }
 
     @Override
+    public ArrayList<Entry> getAllEntryBySwitchIdRelayPin(int switchId, int relayPin) {
+        ArrayList<Entry> array_list = new ArrayList<>();
+        Cursor res =  db.rawQuery( "select * from "+EntryImpl.EntryDetails.TABLE_NAME+ " where " +
+                EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN + "=" + relayPin + " and "+
+                EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
+        if(res.getCount()>0){
+            res.moveToFirst();
+            while(res.isAfterLast() == false){
+                array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails._ID)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_START_HR)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_START_MIN)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_START_SEC)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_END_HR)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_END_MIN)),
+                        res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_END_SEC)),
+                        res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_IS_WEEKDAY)),
+                        res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_IS_MONTH))
+                ));
+                res.moveToNext();
+            }
+            return array_list;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public Entry getEntryById(int id) {
         Cursor res =  db.rawQuery("select * from " + EntryImpl.EntryDetails.TABLE_NAME + " where " + EntryImpl.EntryDetails._ID + "=" + id, null);
         if(res.getCount()>0){
