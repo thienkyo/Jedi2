@@ -44,7 +44,7 @@ public class EntryImpl implements Entry {
                     EntryDetails.COLUMN_NAME_IS_WEEKDAY + TEXT_TYPE + COMMA_SEP +
                     EntryDetails.COLUMN_NAME_IS_MONTH + TEXT_TYPE + COMMA_SEP +
                     EntryDetails.COLUMN_NAME_SWITCH_ID + INTEGER_TYPE + COMMA_SEP +
-                    " FOREIGN KEY (" + EntryDetails.COLUMN_NAME_SWITCH_ID + ") REFERENCES " + SwitchImpl.SwitchDetails.TABLE_NAME + "(" + SwitchImpl.SwitchDetails._ID + ")" +
+                    " FOREIGN KEY (" + EntryDetails.COLUMN_NAME_SWITCH_ID + ") REFERENCES " + SwitchImpl.SwitchDetails.TABLE_NAME + "(" + SwitchImpl.SwitchDetails._ID + ")" + COMMA_SEP +
                     " FOREIGN KEY (" + EntryDetails.COLUMN_NAME_RELAY_PIN + ") REFERENCES " + RelayImpl.RelayDetails.TABLE_NAME + "(" + RelayImpl.RelayDetails._ID + ")" +
                     " )";
     public static final String SQL_DELETE_ENTRY_TBL = "DROP TABLE IF EXISTS " + EntryDetails.TABLE_NAME;

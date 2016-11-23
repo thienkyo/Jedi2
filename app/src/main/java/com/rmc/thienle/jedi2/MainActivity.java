@@ -27,10 +27,12 @@ import android.widget.TextView;
 
 
 import com.rmc.thienle.jedi2.adapter.EntryArrayAdapter;
+import com.rmc.thienle.jedi2.implementation.EntryImpl;
 import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
 import com.rmc.thienle.jedi2.interfaces.Entry;
 import com.rmc.thienle.jedi2.interfaces.services.EntryService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private static final String TAG = MainActivity.class.getSimpleName();
-    private EntryService entryService = new EntryServiceImpl(this);
+    private static EntryService entryService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        entryService = new EntryServiceImpl(this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -208,9 +211,16 @@ public class MainActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
         private static int positionNum;
-        EntryService entryDB = new EntryServiceImpl(getContext());
+       // List<Entry> entryList = null;
+        //EntryService entryDB = new EntryServiceImpl(getContext());
         //1. create ArrayList object: entry
-        List<Entry> entryList = entryDB.getAllEntryBySwitchId(positionNum+5);
+       // List<Entry> entryList = entryDB.getAllEntryBySwitchId(positionNum+5);
+        ArrayList<Entry> entryList = MainActivity.entryService.getAllEntryBySwitchId(positionNum);
+       //  ArrayList entryList = new ArrayList<Entry>();
+     //   if(entryList ==  null){
+            Entry temp = new EntryImpl("No data",0,0,0,0,0,0,0,0,0,"","");
+         //   entryList.add(temp);
+     //   }
         //2. input Data Source (ArrayList object) into ArrayAdapter
         EntryArrayAdapter entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_layout, entryList);
 
@@ -257,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                     Log.d(TAG, "entry : " + entryList.get(arg2).printOut());
-                    entryDB.deleteEntryById(entryList.get(arg2).getEntryId());
+                  //  entryDB.deleteEntryById(entryList.get(arg2).getEntryId());
+                    MainActivity.entryService.deleteEntryById(entryList.get(arg2).getEntryId());
                     entryAdapter.remove(entryList.get(arg2));
                     entryAdapter.notifyDataSetChanged();
                     return true;
@@ -287,16 +298,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 3;
         }
 
-        @Override
+       /* @Override
         public int getItemPosition(Object object) {
             // Causes adapter to reload all Fragments when
             // notifyDataSetChanged is called
             return POSITION_NONE;
             //return super.getItemPosition(object);
-        }
+        }*/
 
         @Override
         public CharSequence getPageTitle(int position) {
