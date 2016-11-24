@@ -2,7 +2,7 @@ package com.rmc.thienle.jedi2.interfaces.services;
 
 import com.rmc.thienle.jedi2.interfaces.Relay;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -17,7 +17,7 @@ public interface RelayService {
     int deleteRelay (int id);
     int deleteAllRelay ();
     Relay getRelayById(int id);
-    ArrayList<Relay> getAllRelay();
+    List<Relay> getAllRelay();
     boolean insertRelay(String relay_name, int relay_pin, float preset_time);
     boolean updateRelay (String relay_name, int relay_pin, float preset_time);
 }

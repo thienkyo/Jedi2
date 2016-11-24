@@ -2,7 +2,7 @@ package com.rmc.thienle.jedi2.interfaces.services;
 
 import com.rmc.thienle.jedi2.interfaces.Switch;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -18,7 +18,7 @@ public interface SwitchService {
     int deleteSwitchById(int id);
     int deleteAllSwitch();
     Switch getSwitchById(int id);
-    ArrayList<Switch> getAllSwitch();
+    List<Switch> getAllSwitch();
     boolean insertSwitch(String switch_name, String sync_code, String pass_code);
     boolean updateSwitchById (int switch_id, String switch_name, String sync_code, String pass_code);
 }

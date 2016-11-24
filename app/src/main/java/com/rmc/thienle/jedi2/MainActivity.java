@@ -29,8 +29,14 @@ import android.widget.TextView;
 import com.rmc.thienle.jedi2.adapter.EntryArrayAdapter;
 import com.rmc.thienle.jedi2.implementation.EntryImpl;
 import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
+import com.rmc.thienle.jedi2.implementation.services.RelayServiceImpl;
+import com.rmc.thienle.jedi2.implementation.services.SwitchServiceImpl;
 import com.rmc.thienle.jedi2.interfaces.Entry;
+import com.rmc.thienle.jedi2.interfaces.Relay;
+import com.rmc.thienle.jedi2.interfaces.Switch;
 import com.rmc.thienle.jedi2.interfaces.services.EntryService;
+import com.rmc.thienle.jedi2.interfaces.services.RelayService;
+import com.rmc.thienle.jedi2.interfaces.services.SwitchService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle(R.string.status_not_connect);
         setSupportActionBar(toolbar);
 
+        entryService = new EntryServiceImpl(this);
         // resultTV = (TextView) findViewById(R.id.section_label);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        entryService = new EntryServiceImpl(this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -209,20 +215,15 @@ public class MainActivity extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private static int positionNum;
-       // List<Entry> entryList = null;
-        //EntryService entryDB = new EntryServiceImpl(getContext());
-        //1. create ArrayList object: entry
-       // List<Entry> entryList = entryDB.getAllEntryBySwitchId(positionNum+5);
-        ArrayList<Entry> entryList = MainActivity.entryService.getAllEntryBySwitchId(positionNum);
-       //  ArrayList entryList = new ArrayList<Entry>();
-     //   if(entryList ==  null){
-            Entry temp = new EntryImpl("No data",0,0,0,0,0,0,0,0,0,"","");
-         //   entryList.add(temp);
-     //   }
-        //2. input Data Source (ArrayList object) into ArrayAdapter
-        EntryArrayAdapter entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_layout, entryList);
+        private static final String ARG_SECTION_NUMBER = "outlet_number";
+        private static int outletNum;
+        private List<Entry> entryList;
+        private List<Relay> relayList;
+        private List<Switch> switchList;
+        private EntryArrayAdapter entryAdapter;
+        private EntryService es;
+        private RelayService rs;
+        private SwitchService ss;
 
         public PlaceholderFragment() {
         }
@@ -232,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
-            positionNum = sectionNumber;
+            outletNum = sectionNumber;
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -244,12 +245,37 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             final TextView resultTV = (TextView) rootView.findViewById(R.id.section_label);
+            TextView tempTV = (TextView) rootView.findViewById(R.id.temp_label);
             resultTV.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             ListView entryLV = (ListView) rootView.findViewById(R.id.entry_list);
 
-            //3. set Adapter for ListView
+            es = new EntryServiceImpl(getContext());
+            rs = new RelayServiceImpl(getContext());
+            ss = new SwitchServiceImpl(getContext());
+        //1. create ArrayList object: entry
+            //entryList = es.getAllEntry();
+            entryList = MainActivity.entryService.getAllEntryByRelayPin(outletNum+5);
+            relayList = rs.getAllRelay();
+            switchList= ss.getAllSwitch();
+            String relayString="";
+            for(Relay r : relayList){
+                relayString += r.printOut();
+            }
+            String switchString="";
+            for(Switch s : switchList){
+                switchString += s.printOut();
+            }
+            tempTV.setText(switchString+"|"+relayString);
+
+            if(entryList ==  null){
+                Entry temp = new EntryImpl("No data",0,0,0,0,0,0,0,0,0,"","");
+                entryList.add(temp);
+            }
+        //2. input Data Source (ArrayList object) into ArrayAdapter
+            entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_layout, entryList);
+        //3. set Adapter for ListView
             entryLV.setAdapter(entryAdapter);
-            //4. handle if user pick one item in ListView
+        //4. handle if user pick one item in ListView
             entryLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -262,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(myIntent);
                 }
             });
-            //5. xử lý sự kiện Long click
+        //5. handle Long click event
             entryLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -301,13 +327,13 @@ public class MainActivity extends AppCompatActivity {
             return 3;
         }
 
-       /* @Override
+        @Override
         public int getItemPosition(Object object) {
             // Causes adapter to reload all Fragments when
             // notifyDataSetChanged is called
             return POSITION_NONE;
             //return super.getItemPosition(object);
-        }*/
+        }
 
         @Override
         public CharSequence getPageTitle(int position) {

@@ -10,6 +10,7 @@ import com.rmc.thienle.jedi2.interfaces.Entry;
 import com.rmc.thienle.jedi2.interfaces.services.EntryService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -56,13 +57,13 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     }
 
     @Override
-    public ArrayList<Entry> getAllEntryBySwitchId(int switchId) {
+    public List<Entry> getAllEntryBySwitchId(int switchId) {
         Cursor res =  db.rawQuery( "select * from "+EntryImpl.EntryDetails.TABLE_NAME+ " where " + EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
         if(res.getCount()>0){
-            ArrayList<Entry> array_list = new ArrayList<>();
+            List<Entry> entrylist = new ArrayList<>();
             res.moveToFirst();
             while(res.isAfterLast() == false){
-                array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
+                entrylist.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails._ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN)),
@@ -77,7 +78,7 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
                 ));
                 res.moveToNext();
             }
-            return array_list;
+            return entrylist;
         }else{
             return null;
         }
@@ -85,13 +86,13 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     }
 
     @Override
-    public ArrayList<Entry> getAllEntryByRelayPin(int relayPin) {
-        ArrayList<Entry> array_list = new ArrayList<>();
+    public List<Entry> getAllEntryByRelayPin(int relayPin) {
+        List<Entry> entrylist = new ArrayList<>();
         Cursor res =  db.rawQuery( "select * from "+EntryImpl.EntryDetails.TABLE_NAME+ " where " + EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN + "=" + relayPin, null );
         if(res.getCount()>0){
             res.moveToFirst();
             while(res.isAfterLast() == false){
-                array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
+                entrylist.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails._ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN)),
@@ -106,22 +107,22 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
                 ));
                 res.moveToNext();
             }
-            return array_list;
+            return entrylist;
         }else{
             return null;
         }
     }
 
     @Override
-    public ArrayList<Entry> getAllEntryBySwitchIdRelayPin(int switchId, int relayPin) {
-        ArrayList<Entry> array_list = new ArrayList<>();
+    public List<Entry> getAllEntryBySwitchIdRelayPin(int switchId, int relayPin) {
+        List<Entry> entrylist = new ArrayList<>();
         Cursor res =  db.rawQuery( "select * from "+EntryImpl.EntryDetails.TABLE_NAME+ " where " +
                 EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN + "=" + relayPin + " and "+
                 EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
         if(res.getCount()>0){
             res.moveToFirst();
             while(res.isAfterLast() == false){
-                array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
+                entrylist.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails._ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN)),
@@ -136,7 +137,7 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
                 ));
                 res.moveToNext();
             }
-            return array_list;
+            return entrylist;
         }else{
             return null;
         }
@@ -166,13 +167,13 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
     }
 
     @Override
-    public ArrayList<Entry> getAllEntry() {
+    public List<Entry> getAllEntry() {
         Cursor res =  db.rawQuery("select * from "+EntryImpl.EntryDetails.TABLE_NAME, null );
         if(res.getCount()>0){
-            ArrayList<Entry> array_list = new ArrayList<>();
+            List<Entry> entrylist = new ArrayList<>();
             res.moveToFirst();
             while(res.isAfterLast() == false){
-                array_list.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
+                entrylist.add(new EntryImpl(res.getString(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_ENTRY_NAME)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails._ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_SWITCH_ID)),
                         res.getInt(res.getColumnIndex(EntryImpl.EntryDetails.COLUMN_NAME_RELAY_PIN)),
@@ -187,7 +188,7 @@ public class EntryServiceImpl extends DataBaseHelper implements EntryService {
                 ));
                 res.moveToNext();
             }
-            return array_list;
+            return entrylist;
         }else{
             return null;
         }

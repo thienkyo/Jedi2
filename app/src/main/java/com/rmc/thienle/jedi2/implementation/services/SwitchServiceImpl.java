@@ -10,6 +10,7 @@ import com.rmc.thienle.jedi2.interfaces.Switch;
 import com.rmc.thienle.jedi2.interfaces.services.SwitchService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -74,19 +75,19 @@ public class SwitchServiceImpl extends DataBaseHelper implements SwitchService {
     }
 
     @Override
-    public ArrayList<Switch> getAllSwitch() {
+    public List<Switch> getAllSwitch() {
         Cursor res = db.rawQuery("select * from " + SwitchImpl.SwitchDetails.TABLE_NAME, null);
         if (res.getCount() > 0) {
-            ArrayList<Switch> array_list = new ArrayList<>();
+            List<Switch> switchlist = new ArrayList<>();
             res.moveToFirst();
             while (res.isAfterLast() == false) {
-                array_list.add(new SwitchImpl(res.getInt(res.getColumnIndex(SwitchImpl.SwitchDetails._ID)),
+                switchlist.add(new SwitchImpl(res.getInt(res.getColumnIndex(SwitchImpl.SwitchDetails._ID)),
                         res.getString(res.getColumnIndex(SwitchImpl.SwitchDetails.COLUMN_NAME_SWITCH_NAME)),
                         res.getString(res.getColumnIndex(SwitchImpl.SwitchDetails.COLUMN_NAME_SYNC_CODE)),
                         res.getString(res.getColumnIndex(SwitchImpl.SwitchDetails.COLUMN_NAME_PASS_CODE))));
                 res.moveToNext();
             }
-            return array_list;
+            return switchlist;
         } else {
             return null;
         }

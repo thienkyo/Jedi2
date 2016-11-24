@@ -10,6 +10,7 @@ import com.rmc.thienle.jedi2.interfaces.Relay;
 import com.rmc.thienle.jedi2.interfaces.services.RelayService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thien.lt on 11/16/2016.
@@ -66,18 +67,18 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
-    public ArrayList<Relay> getAllRelay() {
+    public List<Relay> getAllRelay() {
         Cursor res =  db.rawQuery("select * from "+ RelayImpl.RelayDetails.TABLE_NAME, null );
         if(res.getCount()>0){
-            ArrayList<Relay> array_list = new ArrayList<>();
+            List<Relay> relaylist = new ArrayList<>();
             res.moveToFirst();
             while(res.isAfterLast() == false){
-                array_list.add(new RelayImpl(res.getString(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME)),
+                relaylist.add(new RelayImpl(res.getString(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME)),
                         res.getInt(res.getColumnIndex(RelayImpl.RelayDetails._ID)),
                         res.getFloat(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME))));
                 res.moveToNext();
             }
-            return array_list;
+            return relaylist;
         }else{
             return null;
         }
