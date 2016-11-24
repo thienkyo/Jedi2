@@ -62,9 +62,9 @@ public class EntryImpl implements Entry {
     private String isWeekDay;
     private String isMonth;
 
-    private String weekDay = StringHandler.isWeekDayConversion(isWeekDay);
-    private String month = StringHandler.isMonthConversion(isMonth);
-    private String workingTime = (startHr > 9 ? startHr + "" : "0" + startHr) + ":" + (startMin > 9 ? startMin + "" : "0" + startMin) + " -> " + ":" + (startSec > 9 ? startSec + "" : "0" + startSec) +
+    private String weekDay = "";
+    private String month = "";
+    private String workingTime = (startHr > 9 ? startHr + "" : "0" + startHr) + ":" + (startMin > 9 ? startMin + "" : "0" + startMin) + ":" + (startSec > 9 ? startSec + "" : "0" + startSec) + " -> "+
             (endHr > 9 ? endHr + "" : "0" + endHr) + ":" + (endMin > 9 ? endMin + "" : "0" + endMin) + ":" + (endSec > 9 ? endSec + "" : "0" + endSec);
 
     public EntryImpl(String entryName, int entryId, int switchId, int relayPin,
@@ -83,6 +83,8 @@ public class EntryImpl implements Entry {
         this.endSec = endSec;
         this.isWeekDay = isWeekDay;
         this.isMonth = isMonth;
+        this.weekDay = StringHandler.isWeekDayConversion(isWeekDay);
+        this.month = StringHandler.isMonthConversion(isMonth);
     }
 
     @Override

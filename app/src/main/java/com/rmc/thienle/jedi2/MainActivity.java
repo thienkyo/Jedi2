@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
             ss = new SwitchServiceImpl(getContext());
         //1. create ArrayList object: entry
             //entryList = es.getAllEntry();
-            entryList = MainActivity.entryService.getAllEntryByRelayPin(outletNum+5);
+            entryList = MainActivity.entryService.getAllEntry();
             relayList = rs.getAllRelay();
             switchList= ss.getAllSwitch();
             String relayString="";
@@ -268,7 +268,8 @@ public class MainActivity extends AppCompatActivity {
             tempTV.setText(switchString+"|"+relayString);
 
             if(entryList ==  null){
-                Entry temp = new EntryImpl("No data",0,0,0,0,0,0,0,0,0,"","");
+                entryList = new ArrayList<>();
+                Entry temp = new EntryImpl("No data",0,0,0,0,0,0,0,0,0,"1,1,1,1,1,1,1","1,1,1,1,1,1,1,1,1,1,1,1");
                 entryList.add(temp);
             }
         //2. input Data Source (ArrayList object) into ArrayAdapter
