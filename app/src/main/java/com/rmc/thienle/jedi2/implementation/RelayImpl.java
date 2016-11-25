@@ -25,18 +25,19 @@ public class RelayImpl implements Relay {
             "CREATE TABLE " + RelayDetails.TABLE_NAME + " (" +
                     RelayDetails._ID + " INTEGER PRIMARY KEY," +
                     RelayDetails.COLUMN_NAME_RELAY_NAME + TEXT_TYPE + COMMA_SEP +
-                    RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + FLOAT_TYPE  + ")";
+                    RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + FLOAT_TYPE + ")";
     public static final String SQL_DELETE_RELAY_TBL = "DROP TABLE IF EXISTS " + RelayDetails.TABLE_NAME;
-    public static final String SQL_INITIAL_RELAY_DATA = "INSERT INTO " + RelayDetails.TABLE_NAME +
-                    "(" + RelayDetails._ID + COMMA_SEP +
-                    RelayDetails.COLUMN_NAME_RELAY_NAME+ COMMA_SEP+
-                    RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME +
-                    ") values(6,'Plumber',0) ;" +
-                    "INSERT INTO " + RelayDetails.TABLE_NAME +
-                    "(" + RelayDetails._ID + COMMA_SEP +
-                    RelayDetails.COLUMN_NAME_RELAY_NAME+ COMMA_SEP+
-                    RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME +
-                    ") values(7,'Lights',0);";
+    public static final String SQL_INITIAL_RELAY_DATA_1 = "INSERT INTO " + RelayDetails.TABLE_NAME +
+            "(" + RelayDetails._ID + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_NAME + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME +
+            ") values(6,'Plumber',0) ;";
+
+    public static final String SQL_INITIAL_RELAY_DATA_2 = "INSERT INTO " + RelayDetails.TABLE_NAME +
+            "(" + RelayDetails._ID + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_NAME + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME +
+            ") values(7,'Lights',0.5);";
 
     private String relayName;
     private int relayPin;

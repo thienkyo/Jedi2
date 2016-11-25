@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static EntryService entryService;
+    private static RelayService relayService;
+    private static SwitchService switchService;
+    private int switchId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +75,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         entryService = new EntryServiceImpl(this);
+        relayService = new RelayServiceImpl(this);
+        switchService = new SwitchServiceImpl(this);
+        switchId = 0;
         // resultTV = (TextView) findViewById(R.id.section_label);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), switchId);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -186,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_delete_all) {
-            //    deleteDataPref();
+            deleteAllEntry();
             return true;
         }
         if (id == R.id.action_add_item) {
@@ -197,13 +203,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addSampleEntry() {
-        entryService.insertEntry("sang6", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
-        entryService.insertEntry("trua6", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
-        entryService.insertEntry("Chieu6", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("sang60", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("trua60", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("Chieu60", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
 
-        entryService.insertEntry("sang7", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
-        entryService.insertEntry("trua7", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
-        entryService.insertEntry("Chieu7", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("sang70", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("trua70", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("Chieu70", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+
+        entryService.insertEntry("sang61", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 1);
+        entryService.insertEntry("trua61", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 1);
+        entryService.insertEntry("Chieu61", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 1);
+
+        entryService.insertEntry("sang71", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 1);
+        entryService.insertEntry("trua71", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 1);
+        entryService.insertEntry("Chieu71", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 1);
+        mSectionsPagerAdapter.notifyDataSetChanged();
+    }
+
+    private void deleteAllEntry(){
+        entryService.deleteAllEntry();
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
@@ -216,14 +235,14 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "outlet_number";
-        private static int outletNum;
+        private static final String ARG_SWITCH_ID = "switchId";
         private List<Entry> entryList;
         private List<Relay> relayList;
         private List<Switch> switchList;
         private EntryArrayAdapter entryAdapter;
-        private EntryService es;
-        private RelayService rs;
-        private SwitchService ss;
+        //private EntryService es;
+        //private RelayService rs;
+        //private SwitchService ss;
 
         public PlaceholderFragment() {
         }
@@ -232,31 +251,34 @@ public class MainActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            outletNum = sectionNumber;
+        public static PlaceholderFragment newInstance(int sectionNumber, int switchId) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(ARG_SWITCH_ID, switchId);
             fragment.setArguments(args);
             return fragment;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            int outletNum = getArguments().getInt(ARG_SECTION_NUMBER);
+            int switchId  = getArguments().getInt(ARG_SWITCH_ID);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             final TextView resultTV = (TextView) rootView.findViewById(R.id.section_label);
             TextView tempTV = (TextView) rootView.findViewById(R.id.temp_label);
-            resultTV.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            resultTV.setText(getString(R.string.section_format, outletNum + 5));
             ListView entryLV = (ListView) rootView.findViewById(R.id.entry_list);
 
-            es = new EntryServiceImpl(getContext());
-            rs = new RelayServiceImpl(getContext());
-            ss = new SwitchServiceImpl(getContext());
-        //1. create ArrayList object: entry
+            //es = new EntryServiceImpl(getContext());
+            //rs = new RelayServiceImpl(getContext());
+            //ss = new SwitchServiceImpl(getContext());
             //entryList = es.getAllEntry();
-            entryList = MainActivity.entryService.getAllEntry();
-            relayList = rs.getAllRelay();
-            switchList= ss.getAllSwitch();
+        //1. create ArrayList object: entry
+            //entryList = MainActivity.entryService.getAllEntry();
+            entryList = MainActivity.entryService.getAllEntryByRelayPin(outletNum+5);
+            relayList = MainActivity.relayService.getAllRelay();
+            switchList= MainActivity.switchService.getAllSwitch();
             String relayString="";
             for(Relay r : relayList){
                 relayString += r.printOut();
@@ -265,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
             for(Switch s : switchList){
                 switchString += s.printOut();
             }
-            tempTV.setText(switchString+"|"+relayString);
+            tempTV.setText(switchString+" || "+relayString);
 
             if(entryList ==  null){
                 entryList = new ArrayList<>();
@@ -310,22 +332,23 @@ public class MainActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private int switchId;
+        public SectionsPagerAdapter(FragmentManager fm, int switchId) {
             super(fm);
+            this.switchId = switchId;
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1, switchId);
         }
 
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -340,11 +363,9 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "OUTLET 1";
+                    return "OUTLET 1(pin 6)";
                 case 1:
-                    return "OUTLET 2";
-                case 2:
-                    return "OUTLET 3";
+                    return "OUTLET 2(pin 7)";
             }
             return null;
         }
