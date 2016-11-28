@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 
 import com.rmc.thienle.jedi2.adapter.EntryArrayAdapter;
+import com.rmc.thienle.jedi2.adapter.SwitchArrayAdapter;
 import com.rmc.thienle.jedi2.implementation.EntryImpl;
 import com.rmc.thienle.jedi2.implementation.RelayImpl;
 import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private static RelayService relayService;
     private static SwitchService switchService;
     private int switchId;
-    ArrayAdapter switchsAdapter;
+    SwitchArrayAdapter switchsAdapter;
     ListView switchLV;
     List<Switch> switchList;
 
@@ -234,11 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showSwitchList() {
         switchList = switchService.getAllSwitch();
-        List<String> strSwitches = new ArrayList<>();
-        for (Switch temp : switchList) {
-            strSwitches.add(temp.getSwitchName());
-        }
-        switchsAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, strSwitches);
+        switchsAdapter = new SwitchArrayAdapter(this, R.layout.dialog_switch_list_item_layout, switchList);
 
         // get prompts.xml view
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
