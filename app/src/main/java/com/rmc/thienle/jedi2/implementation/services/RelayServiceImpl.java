@@ -60,7 +60,9 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
             res.moveToFirst();
             return new RelayImpl(res.getString(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME)),
                     res.getInt(res.getColumnIndex(RelayImpl.RelayDetails._ID)),
-                    res.getFloat(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME)));
+                    res.getFloat(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME)),
+                    res.getInt(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID))
+                    );
         }else{
             return null;
         }
@@ -75,7 +77,29 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
             while(res.isAfterLast() == false){
                 relaylist.add(new RelayImpl(res.getString(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME)),
                         res.getInt(res.getColumnIndex(RelayImpl.RelayDetails._ID)),
-                        res.getFloat(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME))));
+                        res.getFloat(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME)),
+                        res.getInt(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID)))
+                );
+                res.moveToNext();
+            }
+            return relaylist;
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public List<Relay> getRelayBySwitchId(int switchId) {
+        Cursor res =  db.rawQuery("select * from "+ RelayImpl.RelayDetails.TABLE_NAME + " where " + RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
+        if(res.getCount()>0){
+            List<Relay> relaylist = new ArrayList<>();
+            res.moveToFirst();
+            while(res.isAfterLast() == false){
+                relaylist.add(new RelayImpl(res.getString(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME)),
+                        res.getInt(res.getColumnIndex(RelayImpl.RelayDetails._ID)),
+                        res.getFloat(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME)),
+                        res.getInt(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID)))
+                );
                 res.moveToNext();
             }
             return relaylist;

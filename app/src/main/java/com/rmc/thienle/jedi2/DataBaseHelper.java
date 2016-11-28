@@ -32,7 +32,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         db.execSQL(EntryImpl.SQL_DELETE_ENTRY_TBL);
         db.execSQL(SwitchImpl.SQL_DELETE_SWITCH_TBL);
         db.execSQL(RelayImpl.SQL_DELETE_RELAY_TBL);
@@ -41,5 +40,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+            db.setForeignKeyConstraintsEnabled (true);
+        }
     }
 }

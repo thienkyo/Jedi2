@@ -47,7 +47,7 @@ public class EntryArrayAdapter extends ArrayAdapter<Entry> {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.entry_list_layout, null);
+            convertView = inflater.inflate(R.layout.entry_list_item_layout, null);
         }
 
         TextView entryNameTV = (TextView)convertView.findViewById(R.id.entry_name);
@@ -60,6 +60,4 @@ public class EntryArrayAdapter extends ArrayAdapter<Entry> {
 
         return convertView;
     }
-
-
 }

@@ -43,9 +43,9 @@ public class SwitchServiceImpl extends DataBaseHelper implements SwitchService {
     public int deleteSwitchById(int id) {
         //SQLiteDatabase db = this.getWritableDatabase();
         if (id != 0) {
-            return db.delete(SwitchImpl.SwitchDetails.TABLE_NAME, SwitchImpl.SwitchDetails._ID + " = ? ", new String[]{String.valueOf(id)});
+            return db.delete(SwitchImpl.SwitchDetails.TABLE_NAME, SwitchImpl.SwitchDetails._ID + " = ? AND " + SwitchImpl.SwitchDetails._ID + " !=1", new String[]{String.valueOf(id)});
         } else {
-            return db.delete(SwitchImpl.SwitchDetails.TABLE_NAME, null, null);
+            return db.delete(SwitchImpl.SwitchDetails.TABLE_NAME, SwitchImpl.SwitchDetails._ID + " !=1", null);
         }
     }
 

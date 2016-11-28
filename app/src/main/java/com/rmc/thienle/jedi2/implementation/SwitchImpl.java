@@ -48,7 +48,7 @@ public class SwitchImpl implements Switch {
 
     @Override
     public String printOut() {
-        return "Name: " + switchName + " id:" + switchId + " sync code:" + syncCode + " pass code:" + passCode;
+        return "Switch name: " + switchName + " switchid:" + switchId + " sync code:" + syncCode + " pass code:" + passCode;
     }
 
     @Override

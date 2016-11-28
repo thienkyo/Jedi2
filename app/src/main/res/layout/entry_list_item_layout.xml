@@ -7,8 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:textSize="25dp"
-        />
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/month_week"
@@ -16,8 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/entry_name"
-        android:textSize="15dp"
-        />
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/entry_time"
@@ -25,6 +23,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/month_week"
-        android:textSize="15dp"
-        />
+        android:textSize="15dp" />
 </RelativeLayout>

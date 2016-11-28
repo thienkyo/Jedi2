@@ -1,11 +1,10 @@
 package com.rmc.thienle.jedi2;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,12 +21,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
 import com.rmc.thienle.jedi2.adapter.EntryArrayAdapter;
 import com.rmc.thienle.jedi2.implementation.EntryImpl;
+import com.rmc.thienle.jedi2.implementation.RelayImpl;
 import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
 import com.rmc.thienle.jedi2.implementation.services.RelayServiceImpl;
 import com.rmc.thienle.jedi2.implementation.services.SwitchServiceImpl;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     private static RelayService relayService;
     private static SwitchService switchService;
     private int switchId;
+    ArrayAdapter switchsAdapter;
+    ListView switchLV;
+    List<Switch> switchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +81,10 @@ public class MainActivity extends AppCompatActivity {
         entryService = new EntryServiceImpl(this);
         relayService = new RelayServiceImpl(this);
         switchService = new SwitchServiceImpl(this);
-        switchId = 0;
-        // resultTV = (TextView) findViewById(R.id.section_label);
+        // first time load;
+        switchId = 1;
+        Switch defaultSwitch = switchService.getSwitchById(switchId);
+        toolbar.setTitle(defaultSwitch.getSwitchName());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), switchId);
@@ -123,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        if (id == R.id.action_switch_list) {
+            //  chksys();
+            return true;
+        }
 
         if (id == R.id.action_check_system) {
             //  chksys();
@@ -221,7 +232,45 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
-    private void deleteAllEntry(){
+    private void showSwitchList() {
+        switchList = switchService.getAllSwitch();
+        List<String> strSwitches = new ArrayList<>();
+        for (Switch temp : switchList) {
+            strSwitches.add(temp.getSwitchName());
+        }
+        switchsAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, strSwitches);
+
+        // get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        View contentView = layoutInflater.inflate(R.layout.dialog_switch_list, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setView(contentView);
+        alertDialogBuilder.setTitle("Switch list");
+
+        switchLV = (ListView) contentView.findViewById(R.id.switch_list);
+        switchLV.setAdapter(switchsAdapter);
+
+        // setup a dialog window
+        alertDialogBuilder.setCancelable(false)
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        // create an alert dialog
+        final AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+
+        switchLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                switchId = switchList.get(arg2).getSwitchId();
+                alert.cancel();
+            }
+        });
+    }
+
+    private void deleteAllEntry() {
         entryService.deleteAllEntry();
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
@@ -237,7 +286,8 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "outlet_number";
         private static final String ARG_SWITCH_ID = "switchId";
         private List<Entry> entryList;
-        private List<Relay> relayList;
+        private List<Relay> allRelayList;
+
         private List<Switch> switchList;
         private EntryArrayAdapter entryAdapter;
         //private EntryService es;
@@ -263,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             int outletNum = getArguments().getInt(ARG_SECTION_NUMBER);
-            int switchId  = getArguments().getInt(ARG_SWITCH_ID);
+            int switchId = getArguments().getInt(ARG_SWITCH_ID);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             final TextView resultTV = (TextView) rootView.findViewById(R.id.section_label);
             TextView tempTV = (TextView) rootView.findViewById(R.id.temp_label);
@@ -274,31 +324,32 @@ public class MainActivity extends AppCompatActivity {
             //rs = new RelayServiceImpl(getContext());
             //ss = new SwitchServiceImpl(getContext());
             //entryList = es.getAllEntry();
-        //1. create ArrayList object: entry
+            //1. create ArrayList object: entry
             //entryList = MainActivity.entryService.getAllEntry();
-            entryList = MainActivity.entryService.getAllEntryByRelayPin(outletNum+5);
-            relayList = MainActivity.relayService.getAllRelay();
-            switchList= MainActivity.switchService.getAllSwitch();
-            String relayString="";
-            for(Relay r : relayList){
-                relayString += r.printOut();
-            }
-            String switchString="";
-            for(Switch s : switchList){
-                switchString += s.printOut();
-            }
-            tempTV.setText(switchString+" || "+relayString);
+            entryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, outletNum + 5);
+            allRelayList = MainActivity.relayService.getAllRelay();
+            switchList = MainActivity.switchService.getAllSwitch();
 
-            if(entryList ==  null){
+            String relayString = "";
+            for (Relay r : allRelayList) {
+                relayString += r.printOut() + "\n";
+            }
+            String switchString = "";
+            for (Switch s : switchList) {
+                switchString += s.printOut() + "\n";
+            }
+            tempTV.setText(switchString + "\n" + relayString);
+
+            if (entryList == null) {
                 entryList = new ArrayList<>();
-                Entry temp = new EntryImpl("No data",0,0,0,0,0,0,0,0,0,"1,1,1,1,1,1,1","1,1,1,1,1,1,1,1,1,1,1,1");
+                Entry temp = new EntryImpl("No data", 0, 0, 0, 0, 0, 0, 0, 0, 0, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
                 entryList.add(temp);
             }
-        //2. input Data Source (ArrayList object) into ArrayAdapter
-            entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_layout, entryList);
-        //3. set Adapter for ListView
+            //2. input Data Source (ArrayList object) into ArrayAdapter
+            entryAdapter = new EntryArrayAdapter(getContext(), R.layout.entry_list_item_layout, entryList);
+            //3. set Adapter for ListView
             entryLV.setAdapter(entryAdapter);
-        //4. handle if user pick one item in ListView
+            //4. handle if user pick one item in ListView
             entryLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -311,12 +362,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(myIntent);
                 }
             });
-        //5. handle Long click event
+            //5. handle Long click event
             entryLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                     Log.d(TAG, "entry : " + entryList.get(arg2).printOut());
-                  //  entryDB.deleteEntryById(entryList.get(arg2).getEntryId());
+                    //  entryDB.deleteEntryById(entryList.get(arg2).getEntryId());
                     MainActivity.entryService.deleteEntryById(entryList.get(arg2).getEntryId());
                     entryAdapter.remove(entryList.get(arg2));
                     entryAdapter.notifyDataSetChanged();
@@ -333,9 +384,18 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private int switchId;
+        private List<Relay> relayList;
+        private int count;
+
         public SectionsPagerAdapter(FragmentManager fm, int switchId) {
             super(fm);
             this.switchId = switchId;
+            relayList = MainActivity.relayService.getRelayBySwitchId(switchId);
+            if (relayList == null) {
+                relayList = new ArrayList<>();
+                relayList.add(new RelayImpl("no relay", 0, 0, 0));
+            }
+            count = relayList.size();
         }
 
         @Override
@@ -348,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return count;
         }
 
         @Override
@@ -361,13 +421,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
+            return relayList.get(position).getRelayName();
+        /*
             switch (position) {
                 case 0:
                     return "OUTLET 1(pin 6)";
                 case 1:
                     return "OUTLET 2(pin 7)";
             }
-            return null;
+            return null;*/
         }
     }
 }
