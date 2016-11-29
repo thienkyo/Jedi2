@@ -12,9 +12,8 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/switch_add_button"
         android:layout_below="@id/switch_list"
         android:src="@android:drawable/ic_input_add"/>

@@ -11,4 +11,8 @@ public interface Entry {
     String getEntryName();
     String getMonthWeekString();
     String getWorkingTime();
+    String getStartTime();
+    String getEndTime();
+    String getIsWeekDay();
+    String getIsMonth();
 }

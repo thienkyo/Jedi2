@@ -33,7 +33,8 @@ public class RelayImpl implements Relay {
                     ")";
     public static final String SQL_DELETE_RELAY_TBL = "DROP TABLE IF EXISTS " + RelayDetails.TABLE_NAME;
     public static final String SQL_INITIAL_RELAY_DATA_1 = "INSERT INTO " + RelayDetails.TABLE_NAME +
-            "(" + RelayDetails._ID + COMMA_SEP +
+            "(" +
+            RelayDetails._ID + COMMA_SEP +
             RelayDetails.COLUMN_NAME_RELAY_NAME + COMMA_SEP +
             RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + COMMA_SEP +
             RelayDetails.COLUMN_NAME_SWITCH_ID +

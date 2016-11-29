@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private static SwitchService switchService;
     private int switchId;
     SwitchArrayAdapter switchsAdapter;
-    ListView switchLV;
+   // ListView switchLV;
     List<Switch> switchList;
 
     @Override
@@ -215,21 +216,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addSampleEntry() {
-        entryService.insertEntry("sang60", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
-        entryService.insertEntry("trua60", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
-        entryService.insertEntry("Chieu60", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 0);
+        entryService.insertEntry("sang60", 6, 0, 9, 30,0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua60", 6, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu60", 6, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang70", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
-        entryService.insertEntry("trua70", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
-        entryService.insertEntry("Chieu70", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 0);
+        entryService.insertEntry("sang70", 7, 0, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua70", 7, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu70", 7, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang61", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 1);
-        entryService.insertEntry("trua61", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 1);
-        entryService.insertEntry("Chieu61", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 6, 1);
+        entryService.insertEntry("sang61", 6, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua61", 6, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu61", 6, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang71", 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 1);
-        entryService.insertEntry("trua71", 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 1);
-        entryService.insertEntry("Chieu71", 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1", 7, 1);
+        entryService.insertEntry("sang71", 7, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua71", 7, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu71", 7, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
@@ -244,12 +245,12 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilder.setView(contentView);
         alertDialogBuilder.setTitle("Switch list");
 
-        switchLV = (ListView) contentView.findViewById(R.id.switch_list);
+        ListView switchLV = (ListView) contentView.findViewById(R.id.switch_list);
+        Button addBtn = (Button) contentView.findViewById(R.id.switch_add_button);
         switchLV.setAdapter(switchsAdapter);
 
         // setup a dialog window
-        alertDialogBuilder.setCancelable(false)
-                .setNegativeButton("Cancel",
+        alertDialogBuilder.setCancelable(false).setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -263,6 +264,13 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 switchId = switchList.get(arg2).getSwitchId();
                 alert.cancel();
+            }
+        });
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alert.cancel();
+                switchsAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -284,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SWITCH_ID = "switchId";
         private List<Entry> entryList;
         private List<Relay> allRelayList;
-
         private List<Switch> switchList;
         private EntryArrayAdapter entryAdapter;
         //private EntryService es;
@@ -352,10 +359,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                     resultTV.setText("position : " + arg2 + "; value =" + entryList.get(arg2));
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", entryList.get(arg2).getEntryId());
-                    bundle.putString("val", entryList.get(arg2).toRaw());
+                    bundle.putInt("entryId", entryList.get(arg2).getEntryId());
+                    bundle.putInt("relayPin", getArguments().getInt(ARG_SECTION_NUMBER)+5);
+                    bundle.putInt("switchId", getArguments().getInt(ARG_SWITCH_ID));
                     Intent myIntent = new Intent(getContext(), EntryManageActivity.class);
-                    myIntent.putExtra("MyBundle", bundle);
+                    myIntent.putExtra("EntryPackage", bundle);
                     startActivity(myIntent);
                 }
             });

@@ -64,9 +64,7 @@ public class EntryImpl implements Entry {
 
     private String weekDay = "";
     private String month = "";
-    private String workingTime = (startHr > 9 ? startHr + "" : "0" + startHr) + ":" + (startMin > 9 ? startMin + "" : "0" + startMin) + ":" + (startSec > 9 ? startSec + "" : "0" + startSec) + " -> "+
-            (endHr > 9 ? endHr + "" : "0" + endHr) + ":" + (endMin > 9 ? endMin + "" : "0" + endMin) + ":" + (endSec > 9 ? endSec + "" : "0" + endSec);
-
+    private String workingTime = "";
     public EntryImpl(String entryName, int entryId, int switchId, int relayPin,
                      int startHr, int startMin, int startSec,
                      int endHr, int endMin, int endSec,
@@ -85,6 +83,9 @@ public class EntryImpl implements Entry {
         this.isMonth = isMonth;
         this.weekDay = StringHandler.isWeekDayConversion(isWeekDay);
         this.month = StringHandler.isMonthConversion(isMonth);
+        this.workingTime = (startHr > 9 ? startHr + "" : "0" + startHr) + ":" + (startMin > 9 ? startMin + "" : "0" + startMin) + ":" + (startSec > 9 ? startSec + "" : "0" + startSec) + " -> "+
+                (endHr > 9 ? endHr + "" : "0" + endHr) + ":" + (endMin > 9 ? endMin + "" : "0" + endMin) + ":" + (endSec > 9 ? endSec + "" : "0" + endSec);
+
     }
 
     @Override
@@ -105,6 +106,26 @@ public class EntryImpl implements Entry {
     @Override
     public String getWorkingTime() {
         return workingTime;
+    }
+
+    @Override
+    public String getStartTime() {
+        return (startHr > 9 ? startHr + "" : "0" + startHr) + ":" + (startMin > 9 ? startMin + "" : "0" + startMin) + ":" + (startSec > 9 ? startSec + "" : "0" + startSec);
+    }
+
+    @Override
+    public String getEndTime() {
+        return (endHr > 9 ? endHr + "" : "0" + endHr) + ":" + (endMin > 9 ? endMin + "" : "0" + endMin) + ":" + (endSec > 9 ? endSec + "" : "0" + endSec);
+    }
+
+    @Override
+    public String getIsWeekDay() {
+        return isWeekDay;
+    }
+
+    @Override
+    public String getIsMonth() {
+        return isMonth;
     }
 
     @Override
