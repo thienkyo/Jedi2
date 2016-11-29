@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     private static RelayService relayService;
     private static SwitchService switchService;
     private int switchId;
-    SwitchArrayAdapter switchsAdapter;
+    private SwitchArrayAdapter switchsAdapter;
+    public static final String ENTRY_PREFERENCES = "Thienkyo_switch_Shared_Preferences";
    // ListView switchLV;
     List<Switch> switchList;
 
