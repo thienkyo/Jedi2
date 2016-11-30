@@ -295,9 +295,6 @@ public class MainActivity extends AppCompatActivity {
         private List<Relay> allRelayList;
         private List<Switch> switchList;
         private EntryArrayAdapter entryAdapter;
-        //private EntryService es;
-        //private RelayService rs;
-        //private SwitchService ss;
 
         public PlaceholderFragment() {
         }
@@ -325,12 +322,7 @@ public class MainActivity extends AppCompatActivity {
             resultTV.setText(getString(R.string.section_format, outletNum + 5));
             ListView entryLV = (ListView) rootView.findViewById(R.id.entry_list);
 
-            //es = new EntryServiceImpl(getContext());
-            //rs = new RelayServiceImpl(getContext());
-            //ss = new SwitchServiceImpl(getContext());
-            //entryList = es.getAllEntry();
             //1. create ArrayList object: entry
-            //entryList = MainActivity.entryService.getAllEntry();
             entryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, outletNum + 5);
             allRelayList = MainActivity.relayService.getAllRelay();
             switchList = MainActivity.switchService.getAllSwitch();

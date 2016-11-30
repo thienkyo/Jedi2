@@ -19,6 +19,7 @@ import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
 import com.rmc.thienle.jedi2.interfaces.Entry;
 import com.rmc.thienle.jedi2.interfaces.services.EntryService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class EntryManageActivity extends AppCompatActivity {
         friBtn = (ToggleButton) findViewById(R.id.fri);
         satBtn = (ToggleButton) findViewById(R.id.sat);
         sunBtn = (ToggleButton) findViewById(R.id.sun);
+        weekDayBtnList = new ArrayList<>();
+        monthBtnList = new ArrayList<>();
         weekDayBtnList.add(monBtn);
         weekDayBtnList.add(tueBtn);
         weekDayBtnList.add(wenBtn);
