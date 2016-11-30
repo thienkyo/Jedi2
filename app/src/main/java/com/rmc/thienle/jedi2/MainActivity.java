@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private int switchId;
     private SwitchArrayAdapter switchsAdapter;
     public static final String ENTRY_PREFERENCES = "Thienkyo_switch_Shared_Preferences";
-   // ListView switchLV;
+    // ListView switchLV;
     List<Switch> switchList;
 
     @Override
@@ -252,11 +252,11 @@ public class MainActivity extends AppCompatActivity {
 
         // setup a dialog window
         alertDialogBuilder.setCancelable(false).setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         // create an alert dialog
         final AlertDialog alert = alertDialogBuilder.create();
         alert.show();

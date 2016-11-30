@@ -14,7 +14,7 @@ import com.rmc.thienle.jedi2.implementation.SwitchImpl;
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String TAG = DataBaseHelper.class.getSimpleName();
     public static final String DATABASE_NAME = "JEDIDB.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     protected SQLiteDatabase db = this.getWritableDatabase();
 
