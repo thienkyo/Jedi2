@@ -1,0 +1,96 @@
+#include <EEPROM.h>
+
+int addr = 0;
+byte cnt = 0;// number of entry
+
+typedef struct{
+  byte relayID;
+  byte start_hr; byte start_mn; byte start_se;
+  byte end_hr; byte end_mn; byte end_se;
+  boolean week[7];
+  boolean date[31];
+  boolean months[12];
+ }  EntryObject;
+
+EntryObject enlist[5];
+
+void setup() {
+	loadEntry()
+	byte container[7];
+	for(byte y =0; y <= 6; y++){
+	  container[y] =y+100;
+	}
+
+	boolean week[7];
+	for(byte x =0; x <= 6; x++){
+	  week[x] =1;
+	}
+
+	boolean date[31];
+	for(byte k =0; k <= 30; k++){
+	  week[k] =0;
+	}
+
+	boolean month[12];
+	for(byte z =0; z <= 11; z++){
+	  month[z] =1;
+	}
+	cnt +=1;
+	addr = saveEntry(addr,container, week, date, month);
+	Serial.print( F("MEM addr:"));
+	EEPROM.write(1023, cnt);
+    Serial.println(addr);
+}
+
+void loop() {
+
+}
+
+int saveEntry(int init_addr, byte container[], boolean week[], boolean date[], boolean month[]){
+  EntryObject entry = {
+    container[0],//relayID
+    container[1],container[2],container[3],//start time
+    container[4],container[5],container[6],//end time
+    week,date,month
+  };
+
+  EEPROM.put(init_addr, entry);
+  init_addr += sizeof(entry);
+  return init_addr;
+}
+
+void loadEntry(){
+  Serial.println(F("**********loadEntry*********"));
+  cnt = EEPROM.read(1023);
+  Serial.print(F("cnt: "));
+  Serial.println(cnt);
+
+  int aa = 0; //EEPROM address to start reading from
+  // int tol = 1;
+  EntryObject entry;
+  for(int i =0; i < cnt; i++){
+      EEPROM.get( aa, entry );
+      aa += sizeof(entry);
+      enlist[i] = entry;
+      Serial.print( F("Read custom object from EEPROM: "));
+      Serial.println(aa);
+      Serial.println(enlist[i].relayID);
+      Serial.println(enlist[i].start_hr);
+      Serial.println(enlist[i].start_mn);
+      Serial.println(enlist[i].start_se);
+      Serial.println(enlist[i].end_hr);
+      Serial.println(enlist[i].end_mn);
+      Serial.println(enlist[i].end_se);
+      for(int y = 0; y < 7; y++){
+           Serial.println(enlist[i].week[y]);
+      }
+	  for(int z = 0; z < 30; z++){
+           Serial.println(enlist[i].date[z]);
+      }
+	  for(int k = 0; k < 11; k++){
+           Serial.println(enlist[i].week[k]);
+      }
+  }
+
+  Serial.println(F("**********End of loadEntry*********"));
+}
