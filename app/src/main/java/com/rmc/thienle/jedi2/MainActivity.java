@@ -230,14 +230,13 @@ public class MainActivity extends AppCompatActivity {
         entryService.insertEntry("trua 7 1", 7, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("Chieu 7 1", 7, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-       /* entryService.insertEntry("sang60", 6, 0, 9, 30,0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("trua60", 6, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("Chieu60", 6, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("sang 6 2", 6, 2, 9, 30,0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua 6 2", 6, 2, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu 6 2", 6, 2, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang70", 7, 0, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("trua70", 7, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("Chieu70", 7, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-*/
+        entryService.insertEntry("sang 7 2", 7, 2, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua 7 2", 7, 2, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu 7 2", 7, 2, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
