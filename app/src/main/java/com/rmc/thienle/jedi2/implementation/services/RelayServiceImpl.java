@@ -89,7 +89,7 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
-    public List<Relay> getRelayBySwitchId(int switchId) {
+    public List<Relay> getRelayBySwitchId(long switchId) {
         Cursor res =  db.rawQuery("select * from "+ RelayImpl.RelayDetails.TABLE_NAME + " where " + RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
         if(res.getCount()>0){
             List<Relay> relaylist = new ArrayList<>();

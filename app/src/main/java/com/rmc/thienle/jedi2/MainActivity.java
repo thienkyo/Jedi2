@@ -3,6 +3,7 @@ package com.rmc.thienle.jedi2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
     private static EntryService entryService;
     private static RelayService relayService;
     private static SwitchService switchService;
-    private int switchId;
+    public int globalSwitchId;
+    public int globalRelayPin;
     private SwitchArrayAdapter switchsAdapter;
     public static final String ENTRY_PREFERENCES = "Thienkyo_switch_Shared_Preferences";
-    // ListView switchLV;
     List<Switch> switchList;
 
     @Override
@@ -86,12 +88,13 @@ public class MainActivity extends AppCompatActivity {
         switchService = new SwitchServiceImpl(this);
 
         // first time load;
-        switchId = 1;
-        Switch defaultSwitch = switchService.getSwitchById(switchId);
+        globalSwitchId = 1;
+        //globalRelayPin = 6;
+        Switch defaultSwitch = switchService.getSwitchById(globalSwitchId);
         toolbar.setTitle(defaultSwitch.getSwitchName());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), switchId);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), globalSwitchId);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -104,15 +107,15 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                if(entryList.size() <=20) {
+               // if(entryList.size() <=20) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", 0);
-                    bundle.putString("val", "");
-                    Intent myIntent = new Intent(MainActivity.this, ThirdActivity.class);
-                    myIntent.putExtra("MyPackage", bundle);
+                    bundle.putInt("entryId", 0);
+                    bundle.putInt("relayPin", globalRelayPin);
+                    bundle.putInt("switchId", globalSwitchId);
+                    Intent myIntent = new Intent(MainActivity.this, EntryManageActivity.class);
+                    myIntent.putExtra("EntryPackage", bundle);
                     startActivity(myIntent);
-                }else{
+               /* }else{
                     Snackbar.make(view, R.string.max_number_entry, Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }*/
             }
@@ -219,22 +222,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addSampleEntry() {
-        entryService.insertEntry("sang61", 6, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("trua61", 6, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("Chieu61", 6, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("sang 6 1", 6, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua 6 1", 6, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu 6 1", 6, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang71", 7, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("trua71", 7, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("Chieu71", 7, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("sang 7 1", 7, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua 7 1", 7, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu 7 1", 7, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang60", 6, 0, 9, 30,0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+       /* entryService.insertEntry("sang60", 6, 0, 9, 30,0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("trua60", 6, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("Chieu60", 6, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
         entryService.insertEntry("sang70", 7, 0, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("trua70", 7, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("Chieu70", 7, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-
+*/
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
@@ -242,39 +245,72 @@ public class MainActivity extends AppCompatActivity {
         switchList = switchService.getAllSwitch();
         switchsAdapter = new SwitchArrayAdapter(this, R.layout.dialog_switch_list_item_layout, switchList);
 
-        // get prompts.xml view
+        // get dialog_switch_list.xml view for switch list dialog
         LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
         View contentView = layoutInflater.inflate(R.layout.dialog_switch_list, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuilder.setView(contentView);
-        alertDialogBuilder.setTitle("Switch list");
-
         ListView switchLV = (ListView) contentView.findViewById(R.id.switch_list);
         Button addBtn = (Button) contentView.findViewById(R.id.switch_add_button);
         switchLV.setAdapter(switchsAdapter);
 
-        // setup a dialog window
-        alertDialogBuilder.setCancelable(false).setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setView(contentView);
+        alertDialogBuilder.setTitle("Switch list");
+        alertDialogBuilder
+                .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 });
-        // create an alert dialog
-        final AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
+        final AlertDialog switchListDialog = alertDialogBuilder.create();
+        switchListDialog.show();
+
+        // get dialog_switch_add.xml view for switch add dialog
+        View switchAddView = layoutInflater.inflate(R.layout.dialog_switch_add, null);
+        final EditText switchNameED = (EditText) switchAddView.findViewById(R.id.dialog_switch_add_name);
+        AlertDialog.Builder switchAddDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        switchAddDialogBuilder.setView(switchAddView);
+        switchAddDialogBuilder.setTitle("Switch creation");
+        switchAddDialogBuilder
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        globalSwitchId = Integer.parseInt(switchService.insertSwitch(switchNameED.getText().toString(),"0,0","0,0")+"");
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        final AlertDialog switchAddDialog = switchAddDialogBuilder.create();
 
         switchLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                switchId = switchList.get(arg2).getSwitchId();
-                alert.cancel();
+                globalSwitchId = switchList.get(arg2).getSwitchId();
+                switchListDialog.cancel();
+            }
+        });
+        switchLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "switch: " + switchList.get(position).printOut());
+                if(position != 1){
+                    entryService.deleteEntryById(switchList.get(position).getSwitchId());
+                    switchsAdapter.remove(switchList.get(position));
+                    switchsAdapter.notifyDataSetChanged();
+                }else{
+                    Snackbar.make(view, R.string.default_switch_delete_msg, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+                return true;
             }
         });
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alert.cancel();
-                switchsAdapter.notifyDataSetChanged();
+                switchListDialog.cancel();
+                switchAddDialog.show();
             }
         });
     }
@@ -413,12 +449,12 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            globalRelayPin = position + 6;
             return PlaceholderFragment.newInstance(position + 1, switchId);
         }
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
             return count;
         }
 
@@ -433,14 +469,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return relayList.get(position).getRelayName();
-        /*
-            switch (position) {
-                case 0:
-                    return "OUTLET 1(pin 6)";
-                case 1:
-                    return "OUTLET 2(pin 7)";
-            }
-            return null;*/
         }
     }
 }

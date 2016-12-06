@@ -25,14 +25,21 @@ public class SwitchImpl implements Switch {
             SwitchDetails._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             SwitchDetails.COLUMN_NAME_SWITCH_NAME + TEXT_TYPE + COMMA_SEP +
             SwitchDetails.COLUMN_NAME_SYNC_CODE + TEXT_TYPE + COMMA_SEP +
-            SwitchDetails.COLUMN_NAME_PASS_CODE + TEXT_TYPE  + ")";
+            SwitchDetails.COLUMN_NAME_PASS_CODE + TEXT_TYPE + ")";
+
     public static final String SQL_DELETE_SWITCH_TBL = "DROP TABLE IF EXISTS " + SwitchDetails.TABLE_NAME;
-    public static final String SQL_INITIAL_SWITCH_DATA = "INSERT INTO " + SwitchDetails.TABLE_NAME +
-            "(" +
+
+    public static final String SQL_INITIAL_SWITCH_DATA = "INSERT INTO " + SwitchDetails.TABLE_NAME + "(" +
             SwitchDetails.COLUMN_NAME_SWITCH_NAME + COMMA_SEP +
             SwitchDetails.COLUMN_NAME_SYNC_CODE + COMMA_SEP +
             SwitchDetails.COLUMN_NAME_PASS_CODE +
             ") values('Default switch','0,0','0,0')";
+
+    public static final String SQL_INITIAL_SWITCH_DATA_2 = "INSERT INTO " + SwitchDetails.TABLE_NAME + "(" +
+            SwitchDetails.COLUMN_NAME_SWITCH_NAME + COMMA_SEP +
+            SwitchDetails.COLUMN_NAME_SYNC_CODE + COMMA_SEP +
+            SwitchDetails.COLUMN_NAME_PASS_CODE +
+            ") values('vegetable garden','0,0','0,0')";
 
     private int switchId;
     private String switchName;

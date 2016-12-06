@@ -16,5 +16,6 @@
         android:layout_height="match_parent"
         android:id="@+id/switch_add_button"
         android:layout_below="@id/switch_list"
+        android:text="Add"
         android:src="@android:drawable/ic_input_add"/>
 </LinearLayout>

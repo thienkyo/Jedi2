@@ -25,6 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SwitchImpl.SQL_CREATE_SWITCH_TBL);
         db.execSQL(SwitchImpl.SQL_INITIAL_SWITCH_DATA);
+        db.execSQL(SwitchImpl.SQL_INITIAL_SWITCH_DATA_2);
         db.execSQL(RelayImpl.SQL_CREATE_RELAY_TBL);
         db.execSQL(RelayImpl.SQL_INITIAL_RELAY_DATA_1);
         db.execSQL(RelayImpl.SQL_INITIAL_RELAY_DATA_2);

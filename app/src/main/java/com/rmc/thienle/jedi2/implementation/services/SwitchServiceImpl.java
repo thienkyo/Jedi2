@@ -22,12 +22,12 @@ public class SwitchServiceImpl extends DataBaseHelper implements SwitchService {
     }
 
     @Override
-    public boolean insertSwitch(String switch_name, String sync_code, String pass_code) {
+    public long insertSwitch(String switch_name, String sync_code, String pass_code) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(SwitchImpl.SwitchDetails.COLUMN_NAME_SWITCH_NAME, switch_name);
         contentValues.put(SwitchImpl.SwitchDetails.COLUMN_NAME_SYNC_CODE, sync_code);
         contentValues.put(SwitchImpl.SwitchDetails.COLUMN_NAME_PASS_CODE, pass_code);
-        return db.insert(SwitchImpl.SwitchDetails.TABLE_NAME, null, contentValues) > 0;
+        return db.insert(SwitchImpl.SwitchDetails.TABLE_NAME, null, contentValues);
     }
 
     @Override

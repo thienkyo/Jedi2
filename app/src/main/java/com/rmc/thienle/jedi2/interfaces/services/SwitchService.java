@@ -19,6 +19,6 @@ public interface SwitchService {
     int deleteAllSwitch();
     Switch getSwitchById(int id);
     List<Switch> getAllSwitch();
-    boolean insertSwitch(String switch_name, String sync_code, String pass_code);
+    long insertSwitch(String switch_name, String sync_code, String pass_code);
     boolean updateSwitchById (int switch_id, String switch_name, String sync_code, String pass_code);
 }

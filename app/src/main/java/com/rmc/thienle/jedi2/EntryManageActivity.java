@@ -147,8 +147,11 @@ public class EntryManageActivity extends AppCompatActivity {
         if (id == R.id.save_entry_manage) {
 
             if (manageEntry(entryId)) {
-                onBackPressed();
-                finish();
+                Intent i = new Intent(this, MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                //onBackPressed();
+                //finish();
             }
         }
         return super.onOptionsItemSelected(item);
