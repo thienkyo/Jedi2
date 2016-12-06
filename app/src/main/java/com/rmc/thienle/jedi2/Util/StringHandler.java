@@ -58,7 +58,7 @@ public class StringHandler {
     public static String trimLastSeparator(String separator, String str){
         if(str.length() > 0){
             if(str.lastIndexOf(separator) == str.length() - 1){
-                str = str.substring(0,str.length()-2);
+                str = str.substring(0,str.length()-1);
             }
         }
         return str;

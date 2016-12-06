@@ -121,7 +121,7 @@ public class EntryManageActivity extends AppCompatActivity {
                 MyTimePickerDialog mTimePicker = new MyTimePickerDialog(EntryManageActivity.this, new MyTimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(com.ikovac.timepickerwithseconds.TimePicker timePicker, int selectedHour, int selectedMinute, int selectedSecond) {
-                        fromTV.setText((selectedHour > 9 ? selectedHour : "0" + selectedHour) + ":" + (selectedMinute > 9 ? selectedMinute : "0" + selectedMinute) + ":" + (selectedSecond > 9 ? selectedSecond : "0" + selectedSecond));
+                        toTV.setText((selectedHour > 9 ? selectedHour : "0" + selectedHour) + ":" + (selectedMinute > 9 ? selectedMinute : "0" + selectedMinute) + ":" + (selectedSecond > 9 ? selectedSecond : "0" + selectedSecond));
                     }
                 }, mcurrentTime.get(Calendar.HOUR_OF_DAY), mcurrentTime.get(Calendar.MINUTE), mcurrentTime.get(Calendar.SECOND), true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -228,7 +228,7 @@ public class EntryManageActivity extends AppCompatActivity {
     }
 
     private void setToggleButton(String str, ToggleButton btn) {
-        if (str == "1") {
+        if (str.equals("1")) {
             btn.setChecked(true);
         } else {
             btn.setChecked(false);

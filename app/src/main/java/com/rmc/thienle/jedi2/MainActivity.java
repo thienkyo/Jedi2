@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         entryService = new EntryServiceImpl(this);
         relayService = new RelayServiceImpl(this);
         switchService = new SwitchServiceImpl(this);
+
         // first time load;
         switchId = 1;
         Switch defaultSwitch = switchService.getSwitchById(switchId);
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //deleteAllEntry();
     }
 
     @Override
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_switch_list) {
-            //  chksys();
+            showSwitchList();
             return true;
         }
 
@@ -217,6 +219,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addSampleEntry() {
+        entryService.insertEntry("sang61", 6, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua61", 6, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu61", 6, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+
+        entryService.insertEntry("sang71", 7, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("trua71", 7, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+        entryService.insertEntry("Chieu71", 7, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
+
         entryService.insertEntry("sang60", 6, 0, 9, 30,0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("trua60", 6, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("Chieu60", 6, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
@@ -225,13 +235,6 @@ public class MainActivity extends AppCompatActivity {
         entryService.insertEntry("trua70", 7, 0, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         entryService.insertEntry("Chieu70", 7, 0, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
 
-        entryService.insertEntry("sang61", 6, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("trua61", 6, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("Chieu61", 6, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-
-        entryService.insertEntry("sang71", 7, 1, 9, 30, 0, 9, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("trua71", 7, 1, 12, 30, 0, 12, 35, 20, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
-        entryService.insertEntry("Chieu71", 7, 1, 15, 55, 0, 15, 59, 15, "1,1,1,1,1,1,1", "1,1,1,1,1,1,1,1,1,1,1,1");
         mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
@@ -292,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "outlet_number";
         private static final String ARG_SWITCH_ID = "switchId";
         private List<Entry> entryList;
+        private List<Entry> allEntryList;
         private List<Relay> allRelayList;
         private List<Switch> switchList;
         private EntryArrayAdapter entryAdapter;
@@ -323,9 +327,16 @@ public class MainActivity extends AppCompatActivity {
             ListView entryLV = (ListView) rootView.findViewById(R.id.entry_list);
 
             //1. create ArrayList object: entry
-            entryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, outletNum + 5);
+            allEntryList = MainActivity.entryService.getAllEntry();
             allRelayList = MainActivity.relayService.getAllRelay();
             switchList = MainActivity.switchService.getAllSwitch();
+
+            String allEntryString = "";
+            if(allEntryList != null){
+                for (Entry e : allEntryList) {
+                    allEntryString += e.printOut() + "\n";
+                }
+            }
 
             String relayString = "";
             for (Relay r : allRelayList) {
@@ -335,7 +346,9 @@ public class MainActivity extends AppCompatActivity {
             for (Switch s : switchList) {
                 switchString += s.printOut() + "\n";
             }
-            tempTV.setText(switchString + "\n" + relayString);
+
+            tempTV.setText(allEntryString +"\n"+ switchString + "\n" + relayString);
+            entryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, outletNum + 5);
 
             if (entryList == null) {
                 entryList = new ArrayList<>();
@@ -350,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
             entryLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                    resultTV.setText("position : " + arg2 + "; value =" + entryList.get(arg2));
+                    resultTV.setText("position : " + arg2 + "; value =" + entryList.get(arg2).printOut());
                     Bundle bundle = new Bundle();
                     bundle.putInt("entryId", entryList.get(arg2).getEntryId());
                     bundle.putInt("relayPin", getArguments().getInt(ARG_SECTION_NUMBER)+5);
