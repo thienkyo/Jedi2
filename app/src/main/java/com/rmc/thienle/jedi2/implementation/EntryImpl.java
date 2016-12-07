@@ -138,11 +138,8 @@ public class EntryImpl implements Entry {
     }
 
     @Override
-    public String toRaw() {  //6,18,0,0,18,30,0, 1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1
-        return entryName +
-                "," + entryId +
-                "," + switchId +
-                "," + relayPin +
+    public String toTransmitString() {  //6,18,0,0,18,30,0, 1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1
+        return  relayPin +
                 "," + startHr + "," + startMin + "," + startSec +
                 "," + endHr + "," + endMin + "," + endSec +
                 "," + isWeekDay +

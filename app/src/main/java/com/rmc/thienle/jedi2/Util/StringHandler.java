@@ -1,19 +1,24 @@
 package com.rmc.thienle.jedi2.Util;
 
-import com.rmc.thienle.jedi2.implementation.services.EntryServiceImpl;
-import com.rmc.thienle.jedi2.interfaces.services.EntryService;
+
+import android.support.annotation.Nullable;
+
+import com.rmc.thienle.jedi2.interfaces.Entry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thien.lt on 11/16/2016.
  */
 
 public class StringHandler {
-    public static String[] weekDayArray = {"Mon","Tue","Wen","Thu","Fri","Sat","Sun"};
-    public static String[] monthArray = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+    private static String[] weekDayArray = {"Mon","Tue","Wen","Thu","Fri","Sat","Sun"};
+    private static String[] monthArray = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     public static String[] monthArray2 = {"1","2","3","4","5","6","7","8","9","10","11","12"};
     /**
      * convert string isWeekDay in database into readable string.
-     * @param isWeekDay
+     * @param isWeekDay ex: "1,1,1,1,1,1,1"
      * @return String. readable string
      */
     public static String isWeekDayConversion(String isWeekDay){
@@ -35,7 +40,7 @@ public class StringHandler {
 
     /**
      * convert string isMonth in database into readable string.
-     * @param isMonth
+     * @param isMonth ex: "1,1,1,1,1,1,1,1,1,1,1,1"
      * @return String. readable string
      */
     public static String isMonthConversion(String isMonth){
@@ -64,5 +69,26 @@ public class StringHandler {
         return str;
     }
 
+    public static List<String> convertEntryToTransmit(List<Entry> entryList){
+        String data="";
+        List<String> result = new ArrayList<>();
+        int size = entryList.size();
+        Entry en;
+        for(int i =0;i< size; i++){
+            en = entryList.get(i);
+            data = en.toTransmitString();
+            if(size==1){
+                data = "A:"+data+":O";
+            }else if(i==0 && size != 1){
+                data = "A:"+data+":F";
+            }else if(i==size-1){
+                data = "A:"+data+":L";
+            }else {
+                data = "A:"+data+":M";
+            }
+            result.add(data);
+        }
+        return result;
+    }
 
 }

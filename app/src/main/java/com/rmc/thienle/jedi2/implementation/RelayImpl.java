@@ -25,7 +25,7 @@ public class RelayImpl implements Relay {
 
     public static final String SQL_CREATE_RELAY_TBL =
             "CREATE TABLE " + RelayDetails.TABLE_NAME + " (" +
-                    RelayDetails._ID + " INTEGER PRIMARY KEY," +
+                    RelayDetails._ID + " INTEGER ," +
                     RelayDetails.COLUMN_NAME_RELAY_NAME + TEXT_TYPE + COMMA_SEP +
                     RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + FLOAT_TYPE + COMMA_SEP +
                     RelayDetails.COLUMN_NAME_SWITCH_ID + INTEGER_TYPE + COMMA_SEP +

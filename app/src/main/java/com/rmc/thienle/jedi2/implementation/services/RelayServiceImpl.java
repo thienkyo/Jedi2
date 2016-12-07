@@ -54,8 +54,8 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
-    public Relay getRelayById(int relayPin) {
-        Cursor res =  db.rawQuery("select * from " + RelayImpl.RelayDetails.TABLE_NAME + " where " + RelayImpl.RelayDetails._ID + "=" + relayPin, null);
+    public Relay getRelayBySwitchIdRelayPin(long switchId, int relayPin) {
+        Cursor res =  db.rawQuery("select * from " + RelayImpl.RelayDetails.TABLE_NAME + " where " + RelayImpl.RelayDetails._ID + "=" + relayPin +" and "+ RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID +"="+switchId, null);
         if(res.getCount()>0){
             res.moveToFirst();
             return new RelayImpl(res.getString(res.getColumnIndex(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME)),

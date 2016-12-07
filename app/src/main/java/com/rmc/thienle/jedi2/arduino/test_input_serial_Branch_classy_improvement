@@ -15,7 +15,7 @@ EEPROM memory : 1024 bytes.
 				body: 245,18
 				Tail: C : compare, U : update means add/update entry comparing key.
 
-    1017,1016 : pre-set period of time of active of a particular outlet when using a button. we have 4 outlet(minutes: 255 max)
+    1017,1016 : pre-set period of time of active of a particular outlet when using a button. we have 2 outlet(minutes: 255 max)
 
   sector0000-1013: the 1014 bytes are for entry storage.
 
@@ -330,8 +330,8 @@ void protocolFactory(String rx_data){
 	if(head == "J"){
 		byte rx_t1 =getValue(body, ',', 0).toInt();
 		byte rx_t2 =getValue(body, ',', 1).toInt();
-		EEPROM.write(1014, rx_t1);
-		EEPROM.write(1015, rx_t2);
+		EEPROM.write(1015, rx_t1);
+		EEPROM.write(1016, rx_t2);
 	}
 
 }

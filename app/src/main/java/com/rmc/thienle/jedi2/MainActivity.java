@@ -73,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
     List<Switch> switchList;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -288,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 globalSwitchId = switchList.get(arg2).getSwitchId();
+                startActivity(getIntent());
                 switchListDialog.cancel();
             }
         });
@@ -333,7 +339,10 @@ public class MainActivity extends AppCompatActivity {
         private List<Entry> allEntryList;
         private List<Relay> allRelayList;
         private List<Switch> switchList;
+        private Relay relay;
         private EntryArrayAdapter entryAdapter;
+        private TextView resultTV, tempTV, preSetTV;
+        private ListView entryLV;
 
         public PlaceholderFragment() {
         }
@@ -353,13 +362,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            int outletNum = getArguments().getInt(ARG_SECTION_NUMBER);
+            int relayPin = getArguments().getInt(ARG_SECTION_NUMBER) + 5;
             int switchId = getArguments().getInt(ARG_SWITCH_ID);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            final TextView resultTV = (TextView) rootView.findViewById(R.id.section_label);
-            TextView tempTV = (TextView) rootView.findViewById(R.id.temp_label);
-            resultTV.setText(getString(R.string.section_format, outletNum + 5));
-            ListView entryLV = (ListView) rootView.findViewById(R.id.entry_list);
+            resultTV = (TextView) rootView.findViewById(R.id.section_label);
+            tempTV = (TextView) rootView.findViewById(R.id.temp_label);
+            preSetTV = (TextView) rootView.findViewById(R.id.tabs_presetTime);
+
+            resultTV.setText(getString(R.string.section_format, relayPin));
+            entryLV = (ListView) rootView.findViewById(R.id.entry_list);
+
 
             //1. create ArrayList object: entry
             allEntryList = MainActivity.entryService.getAllEntry();
@@ -383,7 +395,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             tempTV.setText(allEntryString +"\n"+ switchString + "\n" + relayString);
-            entryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, outletNum + 5);
+            entryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, relayPin);
+            relay = MainActivity.relayService.getRelayBySwitchIdRelayPin(switchId, relayPin);
+            preSetTV.setText(relay.getPresetTime()+"");
 
             if (entryList == null) {
                 entryList = new ArrayList<>();

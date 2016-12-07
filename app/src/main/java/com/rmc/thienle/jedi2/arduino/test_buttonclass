@@ -1,19 +1,5 @@
 #include <Wire.h>
 
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-
-
-  #ifdef AVR
-  Wire.begin();
-  #else
-  Wire1.begin(); // Shield I2C pins connect to alt I2C bus on Arduino Due
-  #endif
-
-}
-
 const int relay1 = 6;
 const int relay2 = 7;
 const int relay3 = 8;
@@ -25,6 +11,19 @@ const int button4 = 13;
 
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;
+byte preSet = 1;
+unsigned long  = 50;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+
+  #ifdef AVR
+  Wire.begin();
+  #else
+  Wire1.begin(); // Shield I2C pins connect to alt I2C bus on Arduino Due
+  #endif
+}
 
 class ButtonController
 {
@@ -51,13 +50,13 @@ class ButtonController
 	}
 	if ((millis() - lastDebounceTime) > debounceDelay) {
 		// check if the pushbutton is pressed.
-	if(lastButtonState != buttonState){
-		digitalWrite(relayPin,digitalRead(relayPin) ^ 1);
-		Serial.print(F("button: "));
-		Serial.println(buttonPin);
-		Serial.print(F("button state: "));
-		Serial.println(digitalRead(buttonPin));
-		}
+        if(lastButtonState != buttonState){
+            digitalWrite(relayPin,digitalRead(relayPin) ^ 1);
+            Serial.print(F("button: "));
+            Serial.println(buttonPin);
+            Serial.print(F("button state: "));
+            Serial.println(digitalRead(buttonPin));
+        }
 		lastButtonState = buttonState;
 	}
 

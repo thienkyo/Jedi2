@@ -16,9 +16,9 @@ public interface RelayService {
      */
     int deleteRelay (int id);
     int deleteAllRelay ();
-    Relay getRelayById(int id);
     List<Relay> getAllRelay();
     List<Relay> getRelayBySwitchId(long switchId);
+    Relay getRelayBySwitchIdRelayPin(long switchId, int relayPin);
     boolean insertRelay(String relay_name, int relay_pin, float preset_time);
     boolean updateRelay (String relay_name, int relay_pin, float preset_time);
 }
