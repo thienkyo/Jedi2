@@ -59,7 +59,7 @@ Entry
   command Check Time.
   rx_Data 5 = "C:2016,13:O"
   tx_Data 5a= "rC:ok:0" (r: response)
-  tx_Data 5b= "rC:1,1,2001,0,0,0:0"
+  tx_Data 5b= "rC:1,1,2001,0,0,0:O"
   command pre-set period of time for button
   rx_Data   = "E:245,18:C"
   rx_Data   = "E:111,130:U"
@@ -67,7 +67,7 @@ Entry
   ":" : delimeter between parts in rawData;
   part 1 : head ex : A, B or C
   part 2 : body ex : 6,8,5,0,8,8,0,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1(entry) or 2014,10,15,18,30,0(time)
-  part 3 : tail ex : F,M,L,O to tell if the entry in rxdata is First, Middle or Last or Only;
+  part 3 : tail ex : F,M,L,O to tell if the entry in rxdata is First, Middle, Last, One;
 ===============================================
 */
 typedef struct{
