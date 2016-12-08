@@ -278,6 +278,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         globalSwitchId = Integer.parseInt(switchService.insertSwitch(switchNameED.getText().toString(),"0,0","0,0")+"");
+                        relayService.insertRelay("outlet 1",6,globalSwitchId,0);
+                        relayService.insertRelay("outlet 2",7,globalSwitchId,0);
                         dialog.cancel();
                     }
                 })
@@ -371,7 +373,6 @@ public class MainActivity extends AppCompatActivity {
 
             resultTV.setText(getString(R.string.section_format, relayPin));
             entryLV = (ListView) rootView.findViewById(R.id.entry_list);
-
 
             //1. create ArrayList object: entry
             allEntryList = MainActivity.entryService.getAllEntry();

@@ -22,10 +22,11 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
-    public boolean insertRelay(String relay_name, int relay_pin, float preset_time) {
+    public boolean insertRelay(String relay_name, int relay_pin,long switchId, float preset_time) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_NAME, relay_name);
         contentValues.put(RelayImpl.RelayDetails._ID, relay_pin);
+        contentValues.put(RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID, switchId);
         contentValues.put(RelayImpl.RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME, preset_time);
         return db.insert(RelayImpl.RelayDetails.TABLE_NAME, null, contentValues) > 0;
     }
@@ -54,7 +55,7 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
-    public Relay getRelayBySwitchIdRelayPin(long switchId, int relayPin) {
+    public Relay getRelayBySwitchIdRelayPin(int switchId, int relayPin) {
         Cursor res =  db.rawQuery("select * from " + RelayImpl.RelayDetails.TABLE_NAME + " where " + RelayImpl.RelayDetails._ID + "=" + relayPin +" and "+ RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID +"="+switchId, null);
         if(res.getCount()>0){
             res.moveToFirst();
@@ -89,7 +90,7 @@ public class RelayServiceImpl extends DataBaseHelper implements RelayService {
     }
 
     @Override
-    public List<Relay> getRelayBySwitchId(long switchId) {
+    public List<Relay> getRelayBySwitchId(int switchId) {
         Cursor res =  db.rawQuery("select * from "+ RelayImpl.RelayDetails.TABLE_NAME + " where " + RelayImpl.RelayDetails.COLUMN_NAME_SWITCH_ID + "=" + switchId, null );
         if(res.getCount()>0){
             List<Relay> relaylist = new ArrayList<>();
