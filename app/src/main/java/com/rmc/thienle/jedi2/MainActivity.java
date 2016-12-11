@@ -375,7 +375,8 @@ public class MainActivity extends AppCompatActivity {
             entryLV = (ListView) rootView.findViewById(R.id.entry_list);
 
             //1. create ArrayList object: entry
-            allEntryList = MainActivity.entryService.getAllEntry();
+            //allEntryList = MainActivity.entryService.getAllEntry();
+            allEntryList = MainActivity.entryService.getAllEntryBySwitchIdRelayPin(switchId, relayPin);
             allRelayList = MainActivity.relayService.getAllRelay();
             switchList = MainActivity.switchService.getAllSwitch();
 

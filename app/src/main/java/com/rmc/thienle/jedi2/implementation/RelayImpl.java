@@ -46,6 +46,20 @@ public class RelayImpl implements Relay {
             RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + COMMA_SEP +
             RelayDetails.COLUMN_NAME_SWITCH_ID +
             ") values(7,'Lights',0.5,1);";
+    public static final String SQL_INITIAL_RELAY_DATA_3 = "INSERT INTO " + RelayDetails.TABLE_NAME +
+            "(" +
+            RelayDetails._ID + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_NAME + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_SWITCH_ID +
+            ") values(6,'outlet 1 vegetable garden',0,2) ;";
+
+    public static final String SQL_INITIAL_RELAY_DATA_4 = "INSERT INTO " + RelayDetails.TABLE_NAME +
+            "(" + RelayDetails._ID + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_NAME + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_RELAY_PRESET_TIME + COMMA_SEP +
+            RelayDetails.COLUMN_NAME_SWITCH_ID +
+            ") values(7,'outlet 2 vegetable garden',0.5,2);";
 
     private String relayName;
     private int relayPin;
@@ -61,7 +75,7 @@ public class RelayImpl implements Relay {
 
     @Override
     public String printOut() {
-        return "Relay: " + relayName + " pin:" + relayPin + " preset time: " + presetTime + "switchid: "+switchId;
+        return "Relay:" + relayName + " pin:" + relayPin + " preset time:" + presetTime + " switchid:"+switchId;
 
     }
 
