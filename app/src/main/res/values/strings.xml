@@ -28,7 +28,7 @@
     <string name="status_connecting">Connecting...</string>
     <string name="status_connected">Connected.</string>
 
-    <string name="input_validate">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
+    <string name="input_validate">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 </string>
 
     <string name="title_activity_second">Setup</string>
     <string name="done">Done</string>

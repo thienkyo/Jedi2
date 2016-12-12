@@ -93,8 +93,8 @@ public class EntryManageActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         Bundle packageFromCaller = callerIntent.getBundleExtra("EntryPackage");
         entryId = packageFromCaller.getInt("entryId", 0);
-        relayPin = packageFromCaller.getInt("relayPin", 0);
-        switchId = packageFromCaller.getInt("switchId", 0);
+        relayPin = packageFromCaller.getInt("relayPin", 6);
+        switchId = packageFromCaller.getInt("switchId", 1);
         Log.d(TAG, "entry id sent from mainAct: " + entryId);
         if (entryId != 0) {
             loadInfo(entryId);

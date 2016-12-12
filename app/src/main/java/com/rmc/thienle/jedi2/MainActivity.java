@@ -3,6 +3,7 @@ package com.rmc.thienle.jedi2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -66,11 +67,13 @@ public class MainActivity extends AppCompatActivity {
     private static EntryService entryService;
     private static RelayService relayService;
     private static SwitchService switchService;
-    public int globalSwitchId;
+    public int globalSwitchId =0 ;
     public int globalRelayPin;
     private SwitchArrayAdapter switchsAdapter;
-    public static final String ENTRY_PREFERENCES = "Thienkyo_switch_Shared_Preferences";
+    public static final String JEDI_PREFERENCES = "Thienkyo_Jedi_Private_Preferences";
+    public static final String CURRENT_SWITCH_KEY = "Curent_Shared_KEY";
     List<Switch> switchList;
+    SharedPreferences sharedPrefs;
 
     @Override
     protected void onResume() {
@@ -91,9 +94,20 @@ public class MainActivity extends AppCompatActivity {
         entryService = new EntryServiceImpl(this);
         relayService = new RelayServiceImpl(this);
         switchService = new SwitchServiceImpl(this);
+        //sharedPrefs = getSharedPreferences(JEDI_PREFERENCES, MainActivity.this.MODE_PRIVATE);
+        //SharedPreferences.Editor e = sharedPrefs.edit();
 
         // first time load;
-        globalSwitchId = 1;
+        if(globalSwitchId == 0){
+            globalSwitchId = 1;
+            //e.remove(CURRENT_SWITCH_KEY);
+            //e.putInt(CURRENT_SWITCH_KEY,1);
+            //e.commit();
+        }else{
+            //globalSwitchId = sharedPrefs.getInt(CURRENT_SWITCH_KEY,0);
+        }
+
+
         //globalRelayPin = 6;
         Switch defaultSwitch = switchService.getSwitchById(globalSwitchId);
         toolbar.setTitle(defaultSwitch.getSwitchName());
@@ -281,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
                         relayService.insertRelay("outlet 1",6,globalSwitchId,0);
                         relayService.insertRelay("outlet 2",7,globalSwitchId,0);
                         dialog.cancel();
+                        onCreate(null);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -295,8 +310,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 globalSwitchId = switchList.get(arg2).getSwitchId();
-                startActivity(getIntent());
+                //startActivity(getIntent());
                 switchListDialog.cancel();
+                onCreate(null);
             }
         });
         switchLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -304,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "switch: " + switchList.get(position).printOut());
                 if(position != 1){
-                    entryService.deleteEntryById(switchList.get(position).getSwitchId());
+                    switchService.deleteSwitchById(switchList.get(position).getSwitchId());
                     switchsAdapter.remove(switchList.get(position));
                     switchsAdapter.notifyDataSetChanged();
                 }else{
