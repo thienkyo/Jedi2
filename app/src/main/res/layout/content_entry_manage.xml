@@ -123,7 +123,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="TUE"
             android:textOn="TUE" />
 
@@ -136,7 +136,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="WEN"
             android:textOn="WEN" />
 
@@ -149,7 +149,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="THU"
             android:textOn="THU" />
 
@@ -162,7 +162,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="FRI"
             android:textOn="FRI" />
 
@@ -175,7 +175,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="SAT"
             android:textOn="SAT" />
 
@@ -188,7 +188,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="SUN"
             android:textOn="SUN" />
     </LinearLayout>
@@ -221,7 +221,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="1"
             android:textOn="1" />
 
@@ -234,7 +234,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="2"
             android:textOn="2" />
 
@@ -247,7 +247,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="3"
             android:textOn="3" />
 
@@ -260,7 +260,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="4"
             android:textOn="4" />
 
@@ -273,7 +273,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="5"
             android:textOn="5" />
 
@@ -286,7 +286,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="6"
             android:textOn="6" />
 
@@ -307,7 +307,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="7"
             android:textOn="7" />
 
@@ -320,7 +320,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="8"
             android:textOn="8" />
 
@@ -333,7 +333,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="9"
             android:textOn="9" />
 
@@ -346,7 +346,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="10"
             android:textOn="10" />
 
@@ -359,7 +359,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="11"
             android:textOn="11" />
 
@@ -372,7 +372,7 @@
             android:maxLines="1"
             android:checked="true"
             android:padding="0dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/toggle_text_color"
             android:textOff="12"
             android:textOn="12" />
 

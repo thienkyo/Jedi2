@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void recreate() {
+        super.recreate();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -316,9 +321,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 globalSwitchId = switchList.get(arg2).getSwitchId();
-                //startActivity(getIntent());
+
                 switchListDialog.cancel();
-                onCreate(null);
+                //finish();
+                //startActivity(getIntent());
+                recreate();
             }
         });
         switchLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -486,7 +493,6 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            globalRelayPin = position + 6;
             return PlaceholderFragment.newInstance(position + 1, switchId);
         }
 
@@ -507,5 +513,6 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return relayList.get(position).getRelayName();
         }
+
     }
 }
