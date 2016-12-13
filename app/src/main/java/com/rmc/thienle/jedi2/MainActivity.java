@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private static EntryService entryService;
     private static RelayService relayService;
     private static SwitchService switchService;
-    public int globalSwitchId =0 ;
-    public int globalRelayPin;
+    public int globalSwitchId = 1;
+    public int globalRelayPin = 6;
     private SwitchArrayAdapter switchsAdapter;
     public static final String JEDI_PREFERENCES = "Thienkyo_Jedi_Private_Preferences";
     public static final String CURRENT_SWITCH_KEY = "Curent_Shared_KEY";
@@ -97,20 +98,9 @@ public class MainActivity extends AppCompatActivity {
         //sharedPrefs = getSharedPreferences(JEDI_PREFERENCES, MainActivity.this.MODE_PRIVATE);
         //SharedPreferences.Editor e = sharedPrefs.edit();
 
-        // first time load;
-        if(globalSwitchId == 0){
-            globalSwitchId = 1;
-            //e.remove(CURRENT_SWITCH_KEY);
-            //e.putInt(CURRENT_SWITCH_KEY,1);
-            //e.commit();
-        }else{
-            //globalSwitchId = sharedPrefs.getInt(CURRENT_SWITCH_KEY,0);
-        }
-
-
         //globalRelayPin = 6;
-        Switch defaultSwitch = switchService.getSwitchById(globalSwitchId);
-        toolbar.setTitle(defaultSwitch.getSwitchName());
+        Switch selectedSwitch = switchService.getSwitchById(globalSwitchId);
+        toolbar.setTitle(selectedSwitch.getSwitchName());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), globalSwitchId);
@@ -121,6 +111,22 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setOnTabSelectedListener(new OnTabSelectedListener(){
+            @Override
+            public void onTabSelected(TabLayout.Tab tab){
+                globalRelayPin = tab.getPosition();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
