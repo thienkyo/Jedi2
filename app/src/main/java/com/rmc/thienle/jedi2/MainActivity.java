@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     public int globalRelayPin = 6;
     private SwitchArrayAdapter switchsAdapter;
     public static final String JEDI_PREFERENCES = "Thienkyo_Jedi_Private_Preferences";
-    public static final String CURRENT_SWITCH_KEY = "Curent_Shared_KEY";
+    public static final String CURRENT_SWITCH_KEY = "Curent_Switch_KEY";
     List<Switch> switchList;
     SharedPreferences sharedPrefs;
 
